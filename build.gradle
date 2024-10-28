@@ -27,6 +27,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //	testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
+    // Spring Boot Starter Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {
