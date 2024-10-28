@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lk.ijse.greenshadowbackend.dto.UserDTO;
 import lk.ijse.greenshadowbackend.exception.AlreadyExistsException;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
+import lk.ijse.greenshadowbackend.exception.UserNotFoundException;
 import lk.ijse.greenshadowbackend.service.UserBo;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,16 @@ public class UserController {
     @GetMapping("/{email}")
     public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
         return new ResponseEntity<>(userBo.getUserByEmail(email), HttpStatus.OK);
+    }
+
+    @PatchMapping
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UserDTO user) {
+        try {
+            userBo.updateUser(mapping.convertUserDTOToUser(user));
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (UserNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

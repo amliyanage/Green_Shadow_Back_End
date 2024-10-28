@@ -7,4 +7,6 @@ public interface UserBo {
     void saveUser(User user);
 
     UserResponse getUserByEmail(String email);
+
+    void updateUser(User user);
 }

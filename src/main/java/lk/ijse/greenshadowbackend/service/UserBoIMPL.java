@@ -5,6 +5,7 @@ import lk.ijse.greenshadowbackend.customObj.UserErrorResponse;
 import lk.ijse.greenshadowbackend.customObj.UserResponse;
 import lk.ijse.greenshadowbackend.entity.User;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
+import lk.ijse.greenshadowbackend.exception.UserNotFoundException;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,16 @@ public class UserBoIMPL implements UserBo{
             return mapping.convertUserToUserDTO(user.get());
         }else {
             return new UserErrorResponse(0,"User not found");
+        }
+    }
+
+    @Override
+    public void updateUser(User user) {
+        Optional<User> existsUser = userRepository.findByEmail(user.getEmail());
+        if (existsUser.isPresent()) {
+            existsUser.get().setPassword(user.getPassword());
+        }else {
+            throw new UserNotFoundException("User not exists");
         }
     }
 
