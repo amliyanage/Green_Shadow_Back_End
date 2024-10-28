@@ -34,4 +34,14 @@ public class UserBoIMPL implements UserBo{
         }
     }
 
+    @Override
+    public UserResponse getUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent()) {
+            return mapping.convertUserToUserDTO(user.get());
+        }else {
+            return new UserErrorResponse(0,"User not found");
+        }
+    }
+
 }

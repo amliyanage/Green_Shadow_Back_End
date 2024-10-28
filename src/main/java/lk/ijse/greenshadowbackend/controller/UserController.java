@@ -32,4 +32,9 @@ public class UserController {
         }
     }
 
+    @GetMapping("/{email}")
+    public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
+        return new ResponseEntity<>(userBo.getUserByEmail(email), HttpStatus.OK);
+    }
+
 }
