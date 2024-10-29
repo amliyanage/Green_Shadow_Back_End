@@ -18,6 +18,7 @@ public class CropDetails {
     private String logCode;
     private Date logDate;
     private String logDetails;
+    @Column(columnDefinition = "LONGTEXT")
     private String observedImage;
 
     @OneToMany
