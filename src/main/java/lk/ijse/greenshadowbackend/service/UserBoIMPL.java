@@ -5,7 +5,7 @@ import lk.ijse.greenshadowbackend.customObj.UserErrorResponse;
 import lk.ijse.greenshadowbackend.customObj.UserResponse;
 import lk.ijse.greenshadowbackend.entity.User;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
-import lk.ijse.greenshadowbackend.exception.UserNotFoundException;
+import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class UserBoIMPL implements UserBo{
         if (existsUser.isPresent()) {
             existsUser.get().setPassword(user.getPassword());
         }else {
-            throw new UserNotFoundException("User not exists");
+            throw new NotFoundException("User not exists");
         }
     }
 

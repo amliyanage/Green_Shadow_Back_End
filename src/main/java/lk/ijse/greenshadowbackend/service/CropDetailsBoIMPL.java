@@ -4,12 +4,17 @@ import lk.ijse.greenshadowbackend.Repository.CropDetailsRepository;
 import lk.ijse.greenshadowbackend.dto.CropDetailsDTO;
 import lk.ijse.greenshadowbackend.entity.CropDetails;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
+import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.util.AppUtil;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CropDetailsBoIMPL implements CropDetailsBo {
 
@@ -27,6 +32,17 @@ public class CropDetailsBoIMPL implements CropDetailsBo {
         CropDetails save = cropDetailsRepository.save(mapping.convertCropDetailsDTOToCropDetails(cropDetailsDTO));
         if (save == null){
             throw new DataPersistFailedException("Crop details save failed");
+        }
+    }
+
+    @Override
+    public void updateCropDetails(CropDetailsDTO cropDetailsDTO){
+        Optional<CropDetails> cropDetailsByLogCode = cropDetailsRepository.findCropDetailsByLogCode(cropDetailsDTO.getLogCode());
+        if (cropDetailsByLogCode.isPresent()){
+            cropDetailsByLogCode.get().setLogDetails(cropDetailsDTO.getLogDetails());
+            cropDetailsByLogCode.get().setObservedImage(cropDetailsDTO.getObservedImage());
+        }else {
+            throw new NotFoundException("Crop details not found");
         }
     }
 

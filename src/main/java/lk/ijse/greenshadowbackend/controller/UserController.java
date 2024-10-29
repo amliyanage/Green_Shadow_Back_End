@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import lk.ijse.greenshadowbackend.dto.UserDTO;
 import lk.ijse.greenshadowbackend.exception.AlreadyExistsException;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
-import lk.ijse.greenshadowbackend.exception.UserNotFoundException;
+import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.UserBo;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +43,7 @@ public class UserController {
         try {
             userBo.updateUser(mapping.convertUserDTOToUser(user));
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (UserNotFoundException e){
+        }catch (NotFoundException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
