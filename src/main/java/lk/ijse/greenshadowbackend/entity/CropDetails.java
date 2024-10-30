@@ -1,5 +1,6 @@
 package lk.ijse.greenshadowbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,11 +24,14 @@ public class CropDetails {
 
     @OneToMany
     @JoinColumn(name = "field_code")
+    @JsonIgnore
     private List<Field> fields;
     @OneToMany
     @JoinColumn(name = "crop_code")
+    @JsonIgnore
     private List<Crop> crops;
     @OneToMany
     @JoinColumn(name = "staff_member_id")
+    @JsonIgnore
     private List<Staff> staff;
 }

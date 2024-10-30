@@ -1,5 +1,6 @@
 package lk.ijse.greenshadowbackend.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lk.ijse.greenshadowbackend.customObj.CropDetailsResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class CropDetailsDTO implements CropDetailsResponse {
     private Date logDate;
     private String logDetails;
     private String observedImage;
-    private List<FieldDTO> fields;
-    private List<CropDTO> crops;
-    private List<StaffDTO> staff;
+//    private List<FieldDTO> fields;
+//    private List<CropDTO> crops;
+//    private List<StaffDTO> staff;
 }

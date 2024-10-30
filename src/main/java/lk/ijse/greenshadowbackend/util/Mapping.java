@@ -4,10 +4,11 @@ import lk.ijse.greenshadowbackend.dto.CropDetailsDTO;
 import lk.ijse.greenshadowbackend.dto.UserDTO;
 import lk.ijse.greenshadowbackend.entity.CropDetails;
 import lk.ijse.greenshadowbackend.entity.User;
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class Mapping {
@@ -29,6 +30,10 @@ public class Mapping {
 
     public CropDetailsDTO convertCropDetailsToCropDetailsDTO(CropDetails cropDetails){
         return mapper.map(cropDetails, CropDetailsDTO.class);
+    }
+
+    public List convertCropDetailsListToCropDetailsDTOList(List<CropDetails> cropDetails){
+        return mapper.map(cropDetails, List.class);
     }
 
 }

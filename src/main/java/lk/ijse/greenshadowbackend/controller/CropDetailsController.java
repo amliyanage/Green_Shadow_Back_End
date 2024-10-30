@@ -82,4 +82,9 @@ public class CropDetailsController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllCropDetails(){
+        return new ResponseEntity<>(cropDetailsBo.getAllCropDetails(), HttpStatus.OK);
+    }
+
 }
