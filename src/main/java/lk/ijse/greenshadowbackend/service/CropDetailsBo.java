@@ -9,4 +9,6 @@ public interface CropDetailsBo {
     void updateCropDetails(CropDetailsDTO cropDetailsDTO);
 
     CropDetailsResponse findCropDetailsByLogCode(String logCode);
+
+    void deleteCropDetailsByLogCode(String logCode);
 }

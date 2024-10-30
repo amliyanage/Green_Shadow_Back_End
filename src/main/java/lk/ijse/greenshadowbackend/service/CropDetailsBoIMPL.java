@@ -59,4 +59,14 @@ public class CropDetailsBoIMPL implements CropDetailsBo {
         }
     }
 
+    @Override
+    public void deleteCropDetailsByLogCode(String logCode) {
+        Optional<CropDetails> cropDetailsByLogCode = cropDetailsRepository.findCropDetailsByLogCode(logCode);
+        if (cropDetailsByLogCode.isPresent()) {
+            cropDetailsRepository.delete(cropDetailsByLogCode.get());
+        }else {
+            throw new NotFoundException("Crop details not found");
+        }
+    }
+
 }
