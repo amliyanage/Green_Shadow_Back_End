@@ -1,5 +1,6 @@
 package lk.ijse.greenshadowbackend.dto;
 
+import lk.ijse.greenshadowbackend.customObj.CropDetailsResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CropDetailsDTO {
+public class CropDetailsDTO implements CropDetailsResponse {
     private String logCode;
     private Date logDate;
     private String logDetails;

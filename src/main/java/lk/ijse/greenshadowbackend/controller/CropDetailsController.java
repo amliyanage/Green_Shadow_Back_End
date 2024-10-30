@@ -1,5 +1,7 @@
 package lk.ijse.greenshadowbackend.controller;
 
+import lk.ijse.greenshadowbackend.Repository.CropDetailsRepository;
+import lk.ijse.greenshadowbackend.customObj.CropDetailsResponse;
 import lk.ijse.greenshadowbackend.dto.CropDetailsDTO;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
@@ -55,6 +57,16 @@ public class CropDetailsController {
             cropDetailsDTO.setObservedImage(updateBase64ProfilePic);
             cropDetailsBo.updateCropDetails(cropDetailsDTO);
             return new ResponseEntity<>(HttpStatus.OK);
+        }catch (NotFoundException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/{logCode}")
+    public ResponseEntity<?> findCropDetailsByLogCode(@PathVariable String logCode){
+        try {
+            CropDetailsResponse cropDetailsByLogCode = cropDetailsBo.findCropDetailsByLogCode(logCode);
+            return new ResponseEntity<>(cropDetailsByLogCode, HttpStatus.OK);
         }catch (NotFoundException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

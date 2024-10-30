@@ -1,6 +1,8 @@
 package lk.ijse.greenshadowbackend.service;
 
 import lk.ijse.greenshadowbackend.Repository.CropDetailsRepository;
+import lk.ijse.greenshadowbackend.customObj.CropDetailsResponse;
+import lk.ijse.greenshadowbackend.customObj.CropErrorResponse;
 import lk.ijse.greenshadowbackend.dto.CropDetailsDTO;
 import lk.ijse.greenshadowbackend.entity.CropDetails;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
@@ -43,6 +45,17 @@ public class CropDetailsBoIMPL implements CropDetailsBo {
             cropDetailsByLogCode.get().setObservedImage(cropDetailsDTO.getObservedImage());
         }else {
             throw new NotFoundException("Crop details not found");
+        }
+    }
+
+    @Override
+    public CropDetailsResponse findCropDetailsByLogCode(String logCode) {
+        Optional<CropDetails> cropDetailsByLogCode = cropDetailsRepository.findCropDetailsByLogCode(logCode);
+        if (cropDetailsByLogCode.isPresent()){
+            CropDetailsDTO cropDetailsDTO = mapping.convertCropDetailsToCropDetailsDTO(cropDetailsByLogCode.get());
+            return cropDetailsDTO;
+        }else {
+            return new CropErrorResponse(0,"Crop details not found");
         }
     }
 

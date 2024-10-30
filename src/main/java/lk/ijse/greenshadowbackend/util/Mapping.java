@@ -27,4 +27,8 @@ public class Mapping {
         return mapper.map(cropDetailsDTO, CropDetails.class);
     }
 
+    public CropDetailsDTO convertCropDetailsToCropDetailsDTO(CropDetails cropDetails){
+        return mapper.map(cropDetails, CropDetailsDTO.class);
+    }
+
 }
