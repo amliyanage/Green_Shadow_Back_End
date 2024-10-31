@@ -1,6 +1,8 @@
 package lk.ijse.greenshadowbackend.service;
 
 import lk.ijse.greenshadowbackend.Repository.StaffRepository;
+import lk.ijse.greenshadowbackend.customObj.StaffErrorResponse;
+import lk.ijse.greenshadowbackend.customObj.StaffResponse;
 import lk.ijse.greenshadowbackend.dto.StaffDTO;
 import lk.ijse.greenshadowbackend.entity.Staff;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
@@ -9,6 +11,8 @@ import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -29,6 +33,16 @@ public class StaffBoIMPL implements StaffBo{
         Staff save = staffRepository.save(mapping.convertStaffDTOToStaff(staffDTO));
         if (save == null){
             throw new DataPersistFailedException("Staff save failed");
+        }
+    }
+
+    @Override
+    public StaffResponse getStaff(String id) {
+        Optional<Staff> staff = staffRepository.findById(id);
+        if (staff.isPresent()){
+            return mapping.convertStaffToStaffDTO(staff.get());
+        }else {
+            return new StaffErrorResponse(404, "Staff not found");
         }
     }
 

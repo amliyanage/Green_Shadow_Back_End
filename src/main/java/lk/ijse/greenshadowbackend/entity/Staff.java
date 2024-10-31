@@ -48,13 +48,13 @@ public class Staff {
         @Enumerated(EnumType.STRING)
         private Role role;
 
-//        @ManyToMany
-//        private List<Field> field;
+        @ManyToMany(mappedBy = "staff")
+        private List<Field> field;
 
-//        @ManyToMany
-//        private List<CropDetails> cropDetails;
+        @ManyToMany(mappedBy = "staff")
+        private List<CropDetails> cropDetails;
 
-        @OneToOne(mappedBy = "staff")
+        @OneToOne(mappedBy = "staff",optional = true)
         private Equipment equipment;
 
         @OneToMany(mappedBy = "staff")

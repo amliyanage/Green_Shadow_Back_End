@@ -25,6 +25,7 @@ public class Crop {
     private String cropImage;
     @Column(name = "category")
     private String category;
+    @Column(name = "crop_season")
     private String cropSeason;
 
     @ManyToOne

@@ -7,11 +7,11 @@ import java.util.UUID;
 
 public class AppUtil {
     public static String createCropDetailsID() {
-        return "CD" + UUID.randomUUID();
+        return "CD-" + UUID.randomUUID();
     }
 
     public static String createStaffID() {
-        return "ST" + UUID.randomUUID();
+        return "ST-" + UUID.randomUUID();
     }
 
     public static String toBase64ProfilePic(MultipartFile profilePic){

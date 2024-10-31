@@ -21,7 +21,7 @@ public class Equipment {
     @Column(name = "availability_status")
     private String status;
 
-    @ManyToOne(optional = true) // Set optional if it can be null
+    @ManyToOne(optional = true)
     @JoinColumn(name = "field_code", referencedColumnName = "field_code")
     private Field field;
 
