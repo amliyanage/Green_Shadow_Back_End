@@ -24,9 +24,10 @@ public class Staff {
         @Column(name = "designation")
         private String designation;
         @Column(name = "Gender")
+        @Enumerated(EnumType.STRING)
         private Gender gender;
         @Column(name = "joined_date")
-        private String joinedDate;
+        private Date joinedDate;
         @Column(name = "date_of_birth")
         private Date DOB;
         @Column(name = "address_line_1")
@@ -44,6 +45,7 @@ public class Staff {
         @Column(name = "email")
         private String email;
         @Column(name = "role")
+        @Enumerated(EnumType.STRING)
         private Role role;
 
 //        @ManyToMany
