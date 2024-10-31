@@ -22,21 +22,25 @@ public class Field {
     private Point fieldLocation;
     @Column(name = "field_size")
     private double fieldSize;
-    @OneToMany(mappedBy = "field")
-    @Column(name = "crops")
-    private List<Crop> crops;
-    @ManyToMany
-    @Column(name = "staff")
-    private List<Staff> staff;
     @Column(name = "image_1", columnDefinition = "LONGTEXT")
     private String image1;
     @Column(name = "image_2", columnDefinition = "LONGTEXT")
     private String image2;
 
-    @OneToMany(mappedBy = "assignedFieldDetails")
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    private List<Crop> crop;
+
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     private List<Equipment> equipment;
 
-    @ManyToOne
-    @JoinColumn(name = "log_code")
-    private CropDetails cropDetails;
+    @ManyToMany
+    @JoinTable(
+            name = "field_staff",
+            joinColumns = @JoinColumn(name = "field_code"),
+            inverseJoinColumns = @JoinColumn(name = "staff_member_id")
+    )
+    private List<Staff> staff;
+
+    @ManyToMany(mappedBy = "field")
+    private List<CropDetails> cropDetails;
 }

@@ -10,6 +10,10 @@ public class AppUtil {
         return "CD" + UUID.randomUUID();
     }
 
+    public static String createStaffID() {
+        return "ST" + UUID.randomUUID();
+    }
+
     public static String toBase64ProfilePic(MultipartFile profilePic){
         String proPicBase64 = null;
         try {

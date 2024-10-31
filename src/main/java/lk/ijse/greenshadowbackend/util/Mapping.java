@@ -1,8 +1,10 @@
 package lk.ijse.greenshadowbackend.util;
 
 import lk.ijse.greenshadowbackend.dto.CropDetailsDTO;
+import lk.ijse.greenshadowbackend.dto.StaffDTO;
 import lk.ijse.greenshadowbackend.dto.UserDTO;
 import lk.ijse.greenshadowbackend.entity.CropDetails;
+import lk.ijse.greenshadowbackend.entity.Staff;
 import lk.ijse.greenshadowbackend.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,14 @@ public class Mapping {
 
     public List convertCropDetailsListToCropDetailsDTOList(List<CropDetails> cropDetails){
         return mapper.map(cropDetails, List.class);
+    }
+
+    public StaffDTO convertStaffToStaffDTO(Staff staff){
+        return mapper.map(staff, StaffDTO.class);
+    }
+
+    public Staff convertStaffDTOToStaff(StaffDTO staffDTO){
+        return mapper.map(staffDTO, Staff.class);
     }
 
 }

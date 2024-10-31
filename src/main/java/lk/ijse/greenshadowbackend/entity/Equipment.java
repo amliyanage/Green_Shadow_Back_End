@@ -21,11 +21,11 @@ public class Equipment {
     @Column(name = "availability_status")
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "staff_member_id")
-    private Staff assignedStaffDetails;
+    @ManyToOne(optional = true) // Set optional if it can be null
+    @JoinColumn(name = "field_code", referencedColumnName = "field_code")
+    private Field field;
 
-    @ManyToOne
-    @JoinColumn(name = "field_code")
-    private Field assignedFieldDetails;
+    @OneToOne(optional = true)
+    @JoinColumn(name = "staff_member_id", referencedColumnName = "staff_member_id")
+    private Staff staff;
 }
