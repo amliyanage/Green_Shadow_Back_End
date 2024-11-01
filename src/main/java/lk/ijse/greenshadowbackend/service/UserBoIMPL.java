@@ -3,6 +3,7 @@ package lk.ijse.greenshadowbackend.service;
 import lk.ijse.greenshadowbackend.Repository.UserRepository;
 import lk.ijse.greenshadowbackend.customObj.UserErrorResponse;
 import lk.ijse.greenshadowbackend.customObj.UserResponse;
+import lk.ijse.greenshadowbackend.dto.UserDTO;
 import lk.ijse.greenshadowbackend.entity.User;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
@@ -23,10 +24,10 @@ public class UserBoIMPL implements UserBo{
     private final Mapping mapping;
 
     @Override
-    public void saveUser(User user) {
+    public void saveUser(UserDTO user) {
         Optional<User> existsUser = userRepository.findByEmail(user.getEmail());
         if (!existsUser.isPresent()) {
-            User save = userRepository.save(user);
+            User save = userRepository.save(mapping.convertUserDTOToUser(user));
             if (save == null) {
                 throw new DataPersistFailedException("User save failed");
             }
@@ -46,7 +47,7 @@ public class UserBoIMPL implements UserBo{
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(UserDTO user) {
         Optional<User> existsUser = userRepository.findByEmail(user.getEmail());
         if (existsUser.isPresent()) {
             existsUser.get().setPassword(user.getPassword());

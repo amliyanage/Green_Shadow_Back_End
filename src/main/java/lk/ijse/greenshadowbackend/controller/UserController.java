@@ -24,7 +24,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> saveUser(@Valid @RequestBody UserDTO user) {
         try {
-            userBo.saveUser(mapping.convertUserDTOToUser(user));
+            userBo.saveUser(user);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }catch (AlreadyExistsException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -41,7 +41,7 @@ public class UserController {
     @PatchMapping
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserDTO user) {
         try {
-            userBo.updateUser(mapping.convertUserDTOToUser(user));
+            userBo.updateUser(user);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (NotFoundException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
