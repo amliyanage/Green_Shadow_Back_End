@@ -1,6 +1,7 @@
 package lk.ijse.greenshadowbackend.dto;
 
 import jakarta.persistence.*;
+import lk.ijse.greenshadowbackend.customObj.EquipmentResponse;
 import lk.ijse.greenshadowbackend.entity.Field;
 import lk.ijse.greenshadowbackend.entity.Staff;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EquipmentDTO {
+public class EquipmentDTO implements EquipmentResponse {
     private String equipmentId;
     private String name;
     private String equipmentType;
