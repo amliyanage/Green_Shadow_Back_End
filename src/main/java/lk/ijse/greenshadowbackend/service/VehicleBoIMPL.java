@@ -5,6 +5,7 @@ import lk.ijse.greenshadowbackend.dto.VehicleDTO;
 import lk.ijse.greenshadowbackend.entity.Vehicle;
 import lk.ijse.greenshadowbackend.exception.AlreadyExistsException;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
+import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.util.AppUtil;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,23 @@ public class VehicleBoIMPL implements VehicleBo {
             }
         }
     }
+
+    @Override
+    public void updateVehicle(VehicleDTO vehicleDTO) {
+        Vehicle vehicle = vehicleRepository.findById(vehicleDTO.getVehicleCode())
+                .orElseThrow(() -> new NotFoundException("vehicle not found"));
+
+        vehicle.setStatus(vehicleDTO.getStatus());
+        vehicle.setRemarks(vehicleDTO.getRemarks());
+
+        if (vehicleDTO.getStaff() != null) {
+            vehicle.setStaff(mapping.convertStaffDTOToStaff(vehicleDTO.getStaff()));
+        }else{
+            vehicle.setStaff(null);
+        }
+
+        vehicleRepository.save(vehicle);
+    }
+
 
 }
