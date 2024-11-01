@@ -46,4 +46,7 @@ public class Mapping {
         return mapper.map(staffDTO, Staff.class);
     }
 
+    public List convertStaffListToStaffDTOList(List<Staff> all) {
+        return mapper.map(all, List.class);
+    }
 }

@@ -1,5 +1,6 @@
 package lk.ijse.greenshadowbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,14 +50,18 @@ public class Staff {
         private Role role;
 
         @ManyToMany(mappedBy = "staff")
+        @JsonIgnore
         private List<Field> field;
 
         @ManyToMany(mappedBy = "staff")
+        @JsonIgnore
         private List<CropDetails> cropDetails;
 
         @OneToOne(mappedBy = "staff",optional = true)
+        @JsonIgnore
         private Equipment equipment;
 
         @OneToMany(mappedBy = "staff")
+        @JsonIgnore
         private List<Vehicle> vehicles;
 }

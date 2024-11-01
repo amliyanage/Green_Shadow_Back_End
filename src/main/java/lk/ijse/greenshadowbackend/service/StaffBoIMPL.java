@@ -6,12 +6,14 @@ import lk.ijse.greenshadowbackend.customObj.StaffResponse;
 import lk.ijse.greenshadowbackend.dto.StaffDTO;
 import lk.ijse.greenshadowbackend.entity.Staff;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
+import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.util.AppUtil;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,6 +46,34 @@ public class StaffBoIMPL implements StaffBo{
         }else {
             return new StaffErrorResponse(404, "Staff not found");
         }
+    }
+
+    @Override
+    public void updateStaff(StaffDTO staffDTO) {
+        Optional<Staff> staff = staffRepository.findById(staffDTO.getId());
+        if (staff.isPresent()){
+            Staff save = staffRepository.save(mapping.convertStaffDTOToStaff(staffDTO));
+            if (save == null){
+                throw new DataPersistFailedException("Staff update failed");
+            }
+        }else {
+            throw new NotFoundException("Staff not found");
+        }
+    }
+
+    @Override
+    public void deleteStaff(String id) {
+        Optional<Staff> staff = staffRepository.findById(id);
+        if (staff.isPresent()){
+            staffRepository.deleteById(id);
+        }else {
+            throw new NotFoundException("Staff not found");
+        }
+    }
+
+    @Override
+    public List getAllStaff() {
+        return mapping.convertStaffListToStaffDTOList(staffRepository.findAll());
     }
 
 }

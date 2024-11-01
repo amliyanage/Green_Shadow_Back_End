@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lk.ijse.greenshadowbackend.customObj.StaffResponse;
 import lk.ijse.greenshadowbackend.dto.StaffDTO;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
+import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.StaffBo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -36,6 +37,34 @@ public class StaffController {
         }catch (DataPersistFailedException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PatchMapping
+    public ResponseEntity<?> updateStaff(@Valid @RequestBody StaffDTO staffDTO){
+        try {
+            staffBo.updateStaff(staffDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (NotFoundException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        catch (DataPersistFailedException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteStaff(@PathVariable String id){
+        try {
+            staffBo.deleteStaff(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (NotFoundException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllStaff(){
+        return new ResponseEntity<>(staffBo.getAllStaff(), HttpStatus.OK);
     }
 
 }
