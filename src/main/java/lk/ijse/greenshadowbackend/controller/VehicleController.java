@@ -85,4 +85,18 @@ public class VehicleController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping
+    public ResponseEntity<?> getAllVehicles() {
+        try {
+            logger.info("Attempting to get all vehicles");
+            return new ResponseEntity<>(vehicleBo.getAllVehicles(), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error("Failed to get all vehicles", e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("An error occurred while getting all vehicles", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

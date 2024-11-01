@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -64,6 +66,11 @@ public class VehicleBoIMPL implements VehicleBo {
         Vehicle vehicle = vehicleRepository.findById(vehicleCode)
                 .orElseThrow(() -> new NotFoundException("vehicle not found"));
         vehicleRepository.delete(vehicle);
+    }
+
+    @Override
+    public List getAllVehicles() {
+        return mapping.convertVehicleListToVehicleDTOList(vehicleRepository.findAll());
     }
 
 
