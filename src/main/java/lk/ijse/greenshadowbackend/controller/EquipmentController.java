@@ -2,6 +2,7 @@ package lk.ijse.greenshadowbackend.controller;
 
 import lk.ijse.greenshadowbackend.dto.EquipmentDTO;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
+import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.EquipmentBo;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -47,6 +48,26 @@ public class EquipmentController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             logger.error("Unexpected error occurred while retrieving equipment: {}", e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PatchMapping
+    public ResponseEntity<?> updateEquipment(@RequestBody EquipmentDTO equipmentDTO) {
+        logger.info("Received request to update equipment: {}", equipmentDTO);
+
+        try {
+            equipmentBo.updateEquipment(equipmentDTO);
+            logger.info("Successfully updated equipment with ID: {}", equipmentDTO.getEquipmentId());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (DataPersistFailedException e) {
+            logger.error("Failed to update equipment due to data persistence issue: {}", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (NotFoundException e) {
+            logger.error("Failed to update equipment due to not found issue: {}", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("Unexpected error occurred while updating equipment: {}", e.getMessage(), e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

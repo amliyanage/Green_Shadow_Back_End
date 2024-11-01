@@ -7,4 +7,6 @@ public interface EquipmentBo {
     void saveEquipment(EquipmentDTO equipmentDTO);
 
     EquipmentResponse getEquipmentById(String equipmentId);
+
+    void updateEquipment(EquipmentDTO equipmentDTO);
 }
