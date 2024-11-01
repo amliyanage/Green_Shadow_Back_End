@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Base64;
 import java.util.UUID;
 
+
 public class AppUtil {
     public static String createCropDetailsID() {
         return "CD-" + UUID.randomUUID();
@@ -23,5 +24,9 @@ public class AppUtil {
             e.printStackTrace();
         }
         return proPicBase64;
+    }
+
+    public static String createVehicleCode(){
+        return "V-" + UUID.randomUUID();
     }
 }

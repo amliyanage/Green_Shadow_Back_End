@@ -3,9 +3,11 @@ package lk.ijse.greenshadowbackend.util;
 import lk.ijse.greenshadowbackend.dto.CropDetailsDTO;
 import lk.ijse.greenshadowbackend.dto.StaffDTO;
 import lk.ijse.greenshadowbackend.dto.UserDTO;
+import lk.ijse.greenshadowbackend.dto.VehicleDTO;
 import lk.ijse.greenshadowbackend.entity.CropDetails;
 import lk.ijse.greenshadowbackend.entity.Staff;
 import lk.ijse.greenshadowbackend.entity.User;
+import lk.ijse.greenshadowbackend.entity.Vehicle;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -48,5 +50,9 @@ public class Mapping {
 
     public List convertStaffListToStaffDTOList(List<Staff> all) {
         return mapper.map(all, List.class);
+    }
+
+    public Vehicle convertVehicleDTOToVehicle(VehicleDTO vehicleDTO){
+        return mapper.map(vehicleDTO, Vehicle.class);
     }
 }

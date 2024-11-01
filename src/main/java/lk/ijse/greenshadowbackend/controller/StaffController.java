@@ -22,11 +22,12 @@ public class StaffController {
     @PostMapping
     public ResponseEntity<?> saveStaff(@Valid @RequestBody StaffDTO staffDTO){
         try {
-            System.out.println("StaffDTO: " + staffDTO);
             staffBo.saveStaff(staffDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }catch (DataPersistFailedException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

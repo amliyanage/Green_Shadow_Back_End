@@ -31,6 +31,13 @@ dependencies {
     implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.1'
     // Spring Boot Starter Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Use this for Logback
+    implementation 'ch.qos.logback:logback-classic'
+
+// OR use this for Log4j
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl'
+
 }
 
 tasks.named('test') {
