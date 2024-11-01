@@ -1,6 +1,8 @@
 package lk.ijse.greenshadowbackend.service;
 
 import lk.ijse.greenshadowbackend.Repository.FieldRepository;
+import lk.ijse.greenshadowbackend.customObj.FieldErrorResponse;
+import lk.ijse.greenshadowbackend.customObj.FieldResponse;
 import lk.ijse.greenshadowbackend.dto.FieldDTO;
 import lk.ijse.greenshadowbackend.entity.Field;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
@@ -44,12 +46,12 @@ public class FieldBoIMPL implements FieldBo{
     }
 
     @Override
-    public FieldDTO getField(String fieldCode) {
+    public FieldResponse getField(String fieldCode) {
         Optional<Field> field = fieldRepository.findById(fieldCode);
         if (field.isPresent()) {
             return mapping.convertFieldToFieldDTO(field.get());
         }else {
-            throw new NotFoundException("Field not found");
+            return new FieldErrorResponse("Field not found", 404);
         }
     }
 
