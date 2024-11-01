@@ -56,4 +56,14 @@ public class EquipmentBoIMPL implements EquipmentBo {
         }
     }
 
+    @Override
+    public void deleteEquipment(String equipmentId) {
+        Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
+        if (equipment.isPresent()){
+            equipmentRepository.deleteById(equipmentId);
+        }else {
+            throw new NotFoundException("Equipment not found");
+        }
+    }
+
 }

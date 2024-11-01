@@ -9,4 +9,6 @@ public interface EquipmentBo {
     EquipmentResponse getEquipmentById(String equipmentId);
 
     void updateEquipment(EquipmentDTO equipmentDTO);
+
+    void deleteEquipment(String equipmentId);
 }

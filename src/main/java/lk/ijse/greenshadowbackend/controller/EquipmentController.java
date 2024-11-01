@@ -71,4 +71,21 @@ public class EquipmentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/{equipmentId}")
+    public ResponseEntity<?> deleteEquipment(@PathVariable String equipmentId) {
+        logger.info("Received request to delete equipment by ID: {}", equipmentId);
+
+        try {
+            equipmentBo.deleteEquipment(equipmentId);
+            logger.info("Successfully deleted equipment with ID: {}", equipmentId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error("Failed to delete equipment due to not found issue: {}", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("Unexpected error occurred while deleting equipment: {}", e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
