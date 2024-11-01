@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lk.ijse.greenshadowbackend.dto.VehicleDTO;
 import lk.ijse.greenshadowbackend.exception.AlreadyExistsException;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
+import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.VehicleBo;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -51,6 +52,20 @@ public class VehicleController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             logger.error("An error occurred while updating the vehicle: {}", vehicleDTO, e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{vehicleCode}")
+    public ResponseEntity<?> getVehicle(@PathVariable String vehicleCode) {
+        try {
+            logger.info("Attempting to get vehicle by vehicle code: {}", vehicleCode);
+            return new ResponseEntity<>(vehicleBo.getVehicle(vehicleCode), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error("Failed to get vehicle by vehicle code: {}", vehicleCode, e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("An error occurred while getting the vehicle by vehicle code: {}", vehicleCode, e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

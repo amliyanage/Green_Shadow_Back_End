@@ -55,4 +55,8 @@ public class Mapping {
     public Vehicle convertVehicleDTOToVehicle(VehicleDTO vehicleDTO){
         return mapper.map(vehicleDTO, Vehicle.class);
     }
+
+    public VehicleDTO convertVehicleToVehicleDTO(Vehicle vehicle) {
+        return mapper.map(vehicle, VehicleDTO.class);
+    }
 }

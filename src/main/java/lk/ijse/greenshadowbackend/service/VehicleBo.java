@@ -6,4 +6,6 @@ public interface VehicleBo {
     void saveVehicle(VehicleDTO vehicleDTO);
 
     void updateVehicle(VehicleDTO vehicleDTO);
+
+    VehicleDTO getVehicle(String vehicleCode);
 }
