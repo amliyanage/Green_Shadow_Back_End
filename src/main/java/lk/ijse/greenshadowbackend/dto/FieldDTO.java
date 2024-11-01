@@ -1,6 +1,10 @@
 package lk.ijse.greenshadowbackend.dto;
 
+import jakarta.persistence.*;
+import lk.ijse.greenshadowbackend.entity.Crop;
 import lk.ijse.greenshadowbackend.entity.CropDetails;
+import lk.ijse.greenshadowbackend.entity.Equipment;
+import lk.ijse.greenshadowbackend.entity.Staff;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +20,7 @@ public class FieldDTO {
     private String fieldName;
     private Point fieldLocation;
     private double fieldSize;
-    private List<CropDTO> crops;
-    private List<StaffDTO> staff;
     private String image1;
     private String image2;
-    private List<EquipmentDTO> equipment;
-    private CropDetails cropDetails;
+    private List<StaffDTO> staff;
 }

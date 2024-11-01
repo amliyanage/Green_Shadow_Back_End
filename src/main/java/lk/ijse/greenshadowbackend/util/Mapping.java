@@ -1,13 +1,7 @@
 package lk.ijse.greenshadowbackend.util;
 
-import lk.ijse.greenshadowbackend.dto.CropDetailsDTO;
-import lk.ijse.greenshadowbackend.dto.StaffDTO;
-import lk.ijse.greenshadowbackend.dto.UserDTO;
-import lk.ijse.greenshadowbackend.dto.VehicleDTO;
-import lk.ijse.greenshadowbackend.entity.CropDetails;
-import lk.ijse.greenshadowbackend.entity.Staff;
-import lk.ijse.greenshadowbackend.entity.User;
-import lk.ijse.greenshadowbackend.entity.Vehicle;
+import lk.ijse.greenshadowbackend.dto.*;
+import lk.ijse.greenshadowbackend.entity.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -62,5 +56,9 @@ public class Mapping {
 
     public List convertVehicleListToVehicleDTOList(List<Vehicle> all) {
         return mapper.map(all, List.class);
+    }
+
+    public Field convertFieldDTOToField(FieldDTO fieldDTO){
+        return mapper.map(fieldDTO, Field.class);
     }
 }
