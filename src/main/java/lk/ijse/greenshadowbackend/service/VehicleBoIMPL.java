@@ -59,5 +59,12 @@ public class VehicleBoIMPL implements VehicleBo {
         return mapping.convertVehicleToVehicleDTO(vehicle);
     }
 
+    @Override
+    public void deleteVehicle(String vehicleCode) {
+        Vehicle vehicle = vehicleRepository.findById(vehicleCode)
+                .orElseThrow(() -> new NotFoundException("vehicle not found"));
+        vehicleRepository.delete(vehicle);
+    }
+
 
 }

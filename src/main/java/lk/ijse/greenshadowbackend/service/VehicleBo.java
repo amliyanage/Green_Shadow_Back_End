@@ -8,4 +8,6 @@ public interface VehicleBo {
     void updateVehicle(VehicleDTO vehicleDTO);
 
     VehicleDTO getVehicle(String vehicleCode);
+
+    void deleteVehicle(String vehicleCode);
 }

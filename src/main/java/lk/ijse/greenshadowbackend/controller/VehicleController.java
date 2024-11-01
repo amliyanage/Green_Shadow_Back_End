@@ -69,4 +69,20 @@ public class VehicleController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/{vehicleCode}")
+    public ResponseEntity<?> deleteVehicle(@PathVariable String vehicleCode) {
+        try {
+            logger.info("Attempting to delete vehicle by vehicle code: {}", vehicleCode);
+            vehicleBo.deleteVehicle(vehicleCode);
+            logger.info("Vehicle deleted successfully: {}", vehicleCode);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error("Failed to delete vehicle by vehicle code: {}", vehicleCode, e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("An error occurred while deleting the vehicle by vehicle code: {}", vehicleCode, e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
