@@ -40,4 +40,27 @@ public class FieldController {
         }
     }
 
+    @GetMapping("/{fieldCode}")
+    public ResponseEntity<?> getField(@PathVariable String fieldCode){
+        try {
+            return new ResponseEntity<>(fieldBo.getField(fieldCode), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{fieldCode}")
+    public ResponseEntity<?> deleteField(@PathVariable String fieldCode){
+        try {
+            fieldBo.deleteField(fieldCode);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

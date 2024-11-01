@@ -9,4 +9,8 @@ public interface FieldBo {
     void saveField(FieldDTO fieldDTO);
 
     void updateField(FieldDTO fieldDTO);
+
+    FieldDTO getField(String fieldCode);
+
+    void deleteField(String fieldCode);
 }

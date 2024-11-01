@@ -61,4 +61,8 @@ public class Mapping {
     public Field convertFieldDTOToField(FieldDTO fieldDTO){
         return mapper.map(fieldDTO, Field.class);
     }
+
+    public FieldDTO convertFieldToFieldDTO(Field field) {
+        return mapper.map(field, FieldDTO.class);
+    }
 }

@@ -42,4 +42,24 @@ public class FieldBoIMPL implements FieldBo{
         }
     }
 
+    @Override
+    public FieldDTO getField(String fieldCode) {
+        Optional<Field> field = fieldRepository.findById(fieldCode);
+        if (field.isPresent()) {
+            return mapping.convertFieldToFieldDTO(field.get());
+        }else {
+            throw new NotFoundException("Field not found");
+        }
+    }
+
+    @Override
+    public void deleteField(String fieldCode) {
+        Optional<Field> field = fieldRepository.findById(fieldCode);
+        if (field.isPresent()) {
+            fieldRepository.deleteById(fieldCode);
+        }else {
+            throw new NotFoundException("Field not found");
+        }
+    }
+
 }
