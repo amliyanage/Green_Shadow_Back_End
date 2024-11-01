@@ -7,4 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface FieldBo {
     void saveField(FieldDTO fieldDTO);
+
+    void updateField(FieldDTO fieldDTO);
 }
