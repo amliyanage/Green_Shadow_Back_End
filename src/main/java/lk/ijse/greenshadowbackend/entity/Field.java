@@ -1,5 +1,6 @@
 package lk.ijse.greenshadowbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,9 +29,11 @@ public class Field {
     private String image2;
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Crop> crop;
 
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Equipment> equipment;
 
     @ManyToMany
@@ -42,5 +45,6 @@ public class Field {
     private List<Staff> staff;
 
     @ManyToMany(mappedBy = "field")
+    @JsonIgnore
     private List<CropDetails> cropDetails;
 }

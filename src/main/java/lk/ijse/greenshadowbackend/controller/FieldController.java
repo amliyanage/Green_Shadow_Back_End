@@ -63,4 +63,8 @@ public class FieldController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllFields(){
+        return new ResponseEntity<>(fieldBo.getAllFields(), HttpStatus.OK);
+    }
 }
