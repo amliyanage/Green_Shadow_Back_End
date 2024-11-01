@@ -7,7 +7,8 @@ import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.StaffBo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,55 +18,76 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/staff")
 public class StaffController {
 
+    private static final Logger logger = LoggerFactory.getLogger(StaffController.class);
     private final StaffBo staffBo;
 
     @PostMapping
     public ResponseEntity<?> saveStaff(@Valid @RequestBody StaffDTO staffDTO){
+        logger.info("Attempting to save staff: {}", staffDTO);
         try {
             staffBo.saveStaff(staffDTO);
+            logger.info("Successfully saved staff with ID: {}", staffDTO.getId());
             return new ResponseEntity<>(HttpStatus.CREATED);
-        }catch (DataPersistFailedException e){
+        } catch (DataPersistFailedException e) {
+            logger.error("Failed to save staff: {}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
+        } catch (Exception e) {
+            logger.error("Unexpected error occurred while saving staff: {}", e.getMessage(), e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<StaffResponse> getStaff(@PathVariable String id){
+        logger.info("Fetching staff with ID: {}", id);
         try {
-            return new ResponseEntity<>(staffBo.getStaff(id), HttpStatus.OK);
-        }catch (DataPersistFailedException e){
+            StaffResponse staffResponse = staffBo.getStaff(id);
+            logger.info("Successfully fetched staff with ID: {}", id);
+            return new ResponseEntity<>(staffResponse, HttpStatus.OK);
+        } catch (DataPersistFailedException e) {
+            logger.error("Failed to fetch staff: {}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("Unexpected error occurred while fetching staff: {}", e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PatchMapping
     public ResponseEntity<?> updateStaff(@Valid @RequestBody StaffDTO staffDTO){
+        logger.info("Attempting to update staff: {}", staffDTO);
         try {
             staffBo.updateStaff(staffDTO);
+            logger.info("Successfully updated staff with ID: {}", staffDTO.getId());
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch (NotFoundException e){
+        } catch (NotFoundException | DataPersistFailedException e) {
+            logger.error("Failed to update staff: {}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        catch (DataPersistFailedException e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("Unexpected error occurred while updating staff: {}", e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteStaff(@PathVariable String id){
+        logger.info("Attempting to delete staff with ID: {}", id);
         try {
             staffBo.deleteStaff(id);
+            logger.info("Successfully deleted staff with ID: {}", id);
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
+            logger.error("Failed to delete staff: {}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("Unexpected error occurred while deleting staff: {}", e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping
     public ResponseEntity<?> getAllStaff(){
+        logger.info("Fetching all staff members");
         return new ResponseEntity<>(staffBo.getAllStaff(), HttpStatus.OK);
     }
-
 }
