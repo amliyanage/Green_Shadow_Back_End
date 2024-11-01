@@ -33,4 +33,8 @@ public class AppUtil {
     public static String createFieldCode(){
         return "F-" + UUID.randomUUID();
     }
+
+    public static String createEquipmentCode(){
+        return "E-" + UUID.randomUUID();
+    }
 }

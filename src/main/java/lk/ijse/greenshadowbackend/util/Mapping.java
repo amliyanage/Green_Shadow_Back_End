@@ -69,4 +69,16 @@ public class Mapping {
     public List convertFieldListToFieldDTOList(List<Field> all) {
         return mapper.map(all, List.class);
     }
+
+    public EquipmentDTO convertEquipmentToEquipmentDTO(Equipment equipment){
+        return mapper.map(equipment, EquipmentDTO.class);
+    }
+
+    public Equipment convertEquipmentDTOToEquipment(EquipmentDTO equipmentDTO){
+        return mapper.map(equipmentDTO, Equipment.class);
+    }
+
+    public List convertEquipmentListToEquipmentDTOList(List<Equipment> all){
+        return mapper.map(all, List.class);
+    }
 }
