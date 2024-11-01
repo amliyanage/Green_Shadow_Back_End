@@ -88,4 +88,20 @@ public class EquipmentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping
+    public ResponseEntity<?> getAllEquipment() {
+        logger.info("Received request to get all equipment");
+
+        try {
+            logger.info("Successfully retrieved all equipment");
+            return new ResponseEntity<>(equipmentBo.getAllEquipment(), HttpStatus.OK);
+        } catch (DataPersistFailedException e) {
+            logger.error("Failed to retrieve all equipment due to data persistence issue: {}", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("Unexpected error occurred while retrieving all equipment: {}", e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

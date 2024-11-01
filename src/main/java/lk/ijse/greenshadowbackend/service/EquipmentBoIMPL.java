@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -64,6 +65,11 @@ public class EquipmentBoIMPL implements EquipmentBo {
         }else {
             throw new NotFoundException("Equipment not found");
         }
+    }
+
+    @Override
+    public List getAllEquipment() {
+        return mapping.convertEquipmentListToEquipmentDTOList(equipmentRepository.findAll());
     }
 
 }

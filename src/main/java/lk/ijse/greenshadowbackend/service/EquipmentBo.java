@@ -3,6 +3,8 @@ package lk.ijse.greenshadowbackend.service;
 import lk.ijse.greenshadowbackend.customObj.EquipmentResponse;
 import lk.ijse.greenshadowbackend.dto.EquipmentDTO;
 
+import java.util.List;
+
 public interface EquipmentBo {
     void saveEquipment(EquipmentDTO equipmentDTO);
 
@@ -11,4 +13,6 @@ public interface EquipmentBo {
     void updateEquipment(EquipmentDTO equipmentDTO);
 
     void deleteEquipment(String equipmentId);
+
+    List getAllEquipment();
 }
