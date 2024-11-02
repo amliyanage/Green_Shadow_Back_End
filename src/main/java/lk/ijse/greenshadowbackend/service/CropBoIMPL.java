@@ -51,4 +51,32 @@ public class CropBoIMPL implements CropBo{
             return new CropErrorResponse(0,"Crop not found");
         }
     }
+
+    @Override
+    public void updateCrop(CropDTO cropDTO, String fieldCode, String id) {
+        Optional<Crop> byCropCode = cropRepository.findByCropCode(id);
+        if (byCropCode.isPresent()){
+            Field field = fieldRepository.findById(fieldCode).orElseThrow(
+                    () -> new NotFoundException("Field not found")
+            );
+            byCropCode.get().setField(field);
+            byCropCode.get().setCropCommonName(cropDTO.getCropCommonName());
+            byCropCode.get().setCategory(cropDTO.getCategory());
+            byCropCode.get().setCropSeason(cropDTO.getCropSeason());
+            byCropCode.get().setCropScientificName(cropDTO.getCropScientificName());
+            byCropCode.get().setCropImage(cropDTO.getCropImage());
+        }else {
+            throw new NotFoundException("Crop not found");
+        }
+    }
+
+    @Override
+    public void deleteCrop(String id) {
+        Optional<Crop> byCropCode = cropRepository.findByCropCode(id);
+        if (byCropCode.isPresent()){
+            cropRepository.delete(byCropCode.get());
+        }else {
+            throw new NotFoundException("Crop not found");
+        }
+    }
 }

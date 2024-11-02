@@ -68,4 +68,54 @@ public class CropController {
         }
     }
 
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<?> updateCrop(
+            @RequestPart("cropName") String cropName,
+            @RequestPart("cropType") String cropCategory,
+            @RequestPart("cropSeason") String cropSeason,
+            @RequestPart("cropScientificName") String cropScientificName,
+            @RequestParam("cropImage") MultipartFile cropImage,
+            @RequestParam("FieldCode") String fieldCode,
+            @PathVariable String id
+    ) {
+        CropDTO cropDTO = new CropDTO();
+        cropDTO.setCropCommonName(cropName);
+        cropDTO.setCategory(cropCategory);
+        cropDTO.setCropSeason(cropSeason);
+        cropDTO.setCropScientificName(cropScientificName);
+        cropDTO.setCropImage(AppUtil.toBase64(cropImage));
+
+        try {
+            logger.info("Request received to update crop: {}", cropDTO);
+            cropBo.updateCrop(cropDTO, fieldCode, id);
+            logger.info("Crop updated successfully: {}", cropDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e){
+            logger.error("Failed to update crop: {}", cropDTO, e);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (DataPersistFailedException e) {
+            logger.error("Failed to update crop: {}", cropDTO, e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            logger.error("Internal server error while updating crop: {}", cropDTO, e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCrop(@PathVariable String id){
+        try {
+            logger.info("Request received to delete crop with ID: {}", id);
+            cropBo.deleteCrop(id);
+            logger.info("Crop deleted successfully: {}", id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error("Failed to delete crop: {}", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            logger.error("Unexpected error occurred while deleting crop: {}", e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
