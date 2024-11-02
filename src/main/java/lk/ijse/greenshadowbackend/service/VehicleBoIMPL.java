@@ -1,7 +1,11 @@
 package lk.ijse.greenshadowbackend.service;
 
+import lk.ijse.greenshadowbackend.Repository.StaffRepository;
 import lk.ijse.greenshadowbackend.Repository.VehicleRepository;
+import lk.ijse.greenshadowbackend.customObj.StaffResponse;
+import lk.ijse.greenshadowbackend.dto.StaffDTO;
 import lk.ijse.greenshadowbackend.dto.VehicleDTO;
+import lk.ijse.greenshadowbackend.entity.Staff;
 import lk.ijse.greenshadowbackend.entity.Vehicle;
 import lk.ijse.greenshadowbackend.exception.AlreadyExistsException;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +26,7 @@ public class VehicleBoIMPL implements VehicleBo {
 
     private final VehicleRepository vehicleRepository;
     private final Mapping mapping;
+    private final StaffRepository staffRepository;
 
     @Override
     public void saveVehicle(VehicleDTO vehicleDTO){
@@ -37,21 +43,33 @@ public class VehicleBoIMPL implements VehicleBo {
     }
 
     @Override
-    public void updateVehicle(VehicleDTO vehicleDTO) {
-        Vehicle vehicle = vehicleRepository.findById(vehicleDTO.getVehicleCode())
-                .orElseThrow(() -> new NotFoundException("vehicle not found"));
+    public void updateVehicle(VehicleDTO vehicleDTO, String staffId) {
 
+        Staff staff = null;
+        if (!staffId.equals("N/A")) {
+            staff = staffRepository.findById(staffId)
+                    .orElseThrow(() -> new NotFoundException("Staff not found"));
+            vehicleDTO.setStaff(mapping.convertStaffToStaffDTO(staff));
+        }
+
+        Vehicle vehicle = vehicleRepository.findById(vehicleDTO.getVehicleCode())
+                .orElseThrow(() -> new NotFoundException("Vehicle not found"));
+
+        vehicle.setLicensePlateNumber(vehicleDTO.getLicensePlateNumber());
+        vehicle.setVehicleCategory(vehicleDTO.getVehicleCategory());
+        vehicle.setFuelType(vehicleDTO.getFuelType());
         vehicle.setStatus(vehicleDTO.getStatus());
         vehicle.setRemarks(vehicleDTO.getRemarks());
 
-        if (vehicleDTO.getStaff() != null) {
-            vehicle.setStaff(mapping.convertStaffDTOToStaff(vehicleDTO.getStaff()));
-        }else{
+        if (staff != null) {
+            vehicle.setStaff(staff);
+        } else {
             vehicle.setStaff(null);
         }
 
         vehicleRepository.save(vehicle);
     }
+
 
     @Override
     public VehicleDTO getVehicle(String vehicleCode) {

@@ -40,13 +40,16 @@ public class VehicleController {
         }
     }
 
-    @PatchMapping
-    public ResponseEntity<?> updateVehicle(@Valid @RequestBody VehicleDTO vehicleDTO) {
+    @PatchMapping(params = "staffId")
+    public ResponseEntity<?> updateVehicle(@Valid @RequestBody VehicleDTO vehicleDTO , @RequestParam("staffId") String staffId) {
         try {
             logger.info("Attempting to update vehicle: {}", vehicleDTO);
-            vehicleBo.updateVehicle(vehicleDTO);
+            vehicleBo.updateVehicle(vehicleDTO, staffId);
             logger.info("Vehicle updated successfully: {}", vehicleDTO);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error("Failed to update vehicle: {}", vehicleDTO, e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (DataPersistFailedException e) {
             logger.error("Failed to persist vehicle data: {}", vehicleDTO, e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

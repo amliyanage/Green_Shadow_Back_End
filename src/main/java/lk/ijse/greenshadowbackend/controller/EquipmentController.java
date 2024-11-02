@@ -52,23 +52,27 @@ public class EquipmentController {
         }
     }
 
-    @PatchMapping
-    public ResponseEntity<?> updateEquipment(@RequestBody EquipmentDTO equipmentDTO) {
-        logger.info("Received request to update equipment: {}", equipmentDTO);
+    @PatchMapping(params = {"staffIds", "fieldCode"})
+    public ResponseEntity<?> updateEquipment(
+            @RequestBody EquipmentDTO equipmentDTO,
+            @RequestParam("staffIds") String staffId,
+            @RequestParam("fieldCode") String fieldCode) {
+
+        logger.info("Received request to update equipment: staffId={}, fieldCode={}, equipmentDTO={}", staffId, fieldCode, equipmentDTO);
 
         try {
-            equipmentBo.updateEquipment(equipmentDTO);
+            equipmentBo.updateEquipment(equipmentDTO, staffId, fieldCode);
             logger.info("Successfully updated equipment with ID: {}", equipmentDTO.getEquipmentId());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (DataPersistFailedException e) {
             logger.error("Failed to update equipment due to data persistence issue: {}", e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Data persistence issue: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (NotFoundException e) {
             logger.error("Failed to update equipment due to not found issue: {}", e.getMessage());
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Not found issue: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             logger.error("Unexpected error occurred while updating equipment: {}", e.getMessage(), e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Unexpected error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

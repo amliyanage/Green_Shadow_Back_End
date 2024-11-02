@@ -10,7 +10,7 @@ public interface EquipmentBo {
 
     EquipmentResponse getEquipmentById(String equipmentId);
 
-    void updateEquipment(EquipmentDTO equipmentDTO);
+    void updateEquipment(EquipmentDTO equipmentDTO ,String staffId , String fieldCode);
 
     void deleteEquipment(String equipmentId);
 

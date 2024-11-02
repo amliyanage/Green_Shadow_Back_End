@@ -8,7 +8,7 @@ import java.util.List;
 public interface FieldBo {
     void saveField(FieldDTO fieldDTO);
 
-    void updateField(FieldDTO fieldDTO);
+    void updateField(FieldDTO fieldDTO, List<String> staffIds);
 
     FieldResponse getField(String fieldCode);
 
