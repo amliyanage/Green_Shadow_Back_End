@@ -52,8 +52,9 @@ public class EquipmentController {
         }
     }
 
-    @PatchMapping(params = {"staffIds", "fieldCode"})
+    @PatchMapping(value = {"/{equipmentId}"}, params = {"staffIds", "fieldCode"})
     public ResponseEntity<?> updateEquipment(
+            @PathVariable("equipmentId") String equipmentId,
             @RequestBody EquipmentDTO equipmentDTO,
             @RequestParam("staffIds") String staffId,
             @RequestParam("fieldCode") String fieldCode) {
@@ -61,7 +62,7 @@ public class EquipmentController {
         logger.info("Received request to update equipment: staffId={}, fieldCode={}, equipmentDTO={}", staffId, fieldCode, equipmentDTO);
 
         try {
-            equipmentBo.updateEquipment(equipmentDTO, staffId, fieldCode);
+            equipmentBo.updateEquipment(equipmentDTO, staffId, fieldCode , equipmentId);
             logger.info("Successfully updated equipment with ID: {}", equipmentDTO.getEquipmentId());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (DataPersistFailedException e) {

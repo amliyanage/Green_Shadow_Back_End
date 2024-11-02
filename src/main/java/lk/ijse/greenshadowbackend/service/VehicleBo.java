@@ -7,7 +7,7 @@ import java.util.List;
 public interface VehicleBo {
     void saveVehicle(VehicleDTO vehicleDTO);
 
-    void updateVehicle(VehicleDTO vehicleDTO , String staffId);
+    void updateVehicle(VehicleDTO vehicleDTO , String staffId , String vehicleCode);
 
     VehicleDTO getVehicle(String vehicleCode);
 

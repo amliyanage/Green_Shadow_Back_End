@@ -38,10 +38,11 @@ public class UserController {
         return new ResponseEntity<>(userBo.getUserByEmail(email), HttpStatus.OK);
     }
 
-    @PatchMapping
-    public ResponseEntity<?> updateUser(@Valid @RequestBody UserDTO user) {
+    //TODO: Implement the updateUser method
+    @PatchMapping(value = "/{email}")
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UserDTO user , @PathVariable("email") String email){
         try {
-            userBo.updateUser(user);
+            userBo.updateUser(user,email);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (NotFoundException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

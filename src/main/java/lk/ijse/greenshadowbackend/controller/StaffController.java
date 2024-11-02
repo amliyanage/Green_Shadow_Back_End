@@ -53,11 +53,11 @@ public class StaffController {
         }
     }
 
-    @PatchMapping
-    public ResponseEntity<?> updateStaff(@Valid @RequestBody StaffDTO staffDTO){
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<?> updateStaff(@Valid @RequestBody StaffDTO staffDTO , @PathVariable("id") String id){
         logger.info("Attempting to update staff: {}", staffDTO);
         try {
-            staffBo.updateStaff(staffDTO);
+            staffBo.updateStaff(staffDTO,id);
             logger.info("Successfully updated staff with ID: {}", staffDTO.getId());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NotFoundException | DataPersistFailedException e) {

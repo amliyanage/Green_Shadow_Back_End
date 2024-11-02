@@ -53,14 +53,14 @@ public class EquipmentBoIMPL implements EquipmentBo {
     }
 
     @Override
-    public void updateEquipment(EquipmentDTO equipmentDTO , String staffId , String fieldCode) {
+    public void updateEquipment(EquipmentDTO equipmentDTO , String staffId , String fieldCode , String equipmentId) {
 
-        Equipment equipment = equipmentRepository.findById(equipmentDTO.getEquipmentId()).orElse(null);
+        Equipment equipment = equipmentRepository.findById(equipmentId).orElse(null);
 
         if (equipment != null){
 
             equipment = mapping.convertEquipmentDTOToEquipment(equipmentDTO);
-
+            equipment.setEquipmentId(equipmentId);
             if (staffId.equals("N/A")) {
                 equipment.setStaff(null);
             } else {

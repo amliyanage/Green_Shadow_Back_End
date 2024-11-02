@@ -9,5 +9,5 @@ public interface UserBo {
 
     UserResponse getUserByEmail(String email);
 
-    void updateUser(UserDTO user);
+    void updateUser(UserDTO user , String email);
 }

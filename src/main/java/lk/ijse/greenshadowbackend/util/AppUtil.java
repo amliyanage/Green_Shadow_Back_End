@@ -35,7 +35,7 @@ public class AppUtil {
     }
 
     public static String createEquipmentCode(){
-        return "E-" + UUID.randomUUID();
+        return "EQ-" + UUID.randomUUID();
     }
 
     public static String createCropCode(){

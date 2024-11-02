@@ -40,11 +40,11 @@ public class VehicleController {
         }
     }
 
-    @PatchMapping(params = "staffId")
-    public ResponseEntity<?> updateVehicle(@Valid @RequestBody VehicleDTO vehicleDTO , @RequestParam("staffId") String staffId) {
+    @PatchMapping(value = "/{vehicleCode}", params = "staffId")
+    public ResponseEntity<?> updateVehicle(@Valid @RequestBody VehicleDTO vehicleDTO , @RequestParam("staffId") String staffId , @PathVariable("vehicleCode") String vehicleCode) {
         try {
             logger.info("Attempting to update vehicle: {}", vehicleDTO);
-            vehicleBo.updateVehicle(vehicleDTO, staffId);
+            vehicleBo.updateVehicle(vehicleDTO, staffId, vehicleCode);
             logger.info("Vehicle updated successfully: {}", vehicleDTO);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NotFoundException e) {

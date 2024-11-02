@@ -56,17 +56,17 @@ public class FieldController {
         }
     }
 
-    @PatchMapping(params = "staffIds")
+    @PatchMapping(value = "/{fieldCode}", params = "staffIds")
     public ResponseEntity<?> updateField(
-            @RequestParam("fieldCode") String fieldCode,
+            @PathVariable("fieldCode") String fieldCode,
             @RequestParam("fieldName") String fieldName,
             @RequestParam("fieldLocationX") int fieldLocationX,
             @RequestParam("fieldSize") double fieldSize,
             @RequestParam("image1") MultipartFile image1,
             @RequestParam("image2") MultipartFile image2,
             @RequestParam("fieldLocationY") int fieldLocationY,
-            @RequestParam("staffIds") List<String> staffIds )
-    {
+            @RequestParam("staffIds") List<String> staffIds
+    ) {
         FieldDTO fieldDTO = new FieldDTO();
         fieldDTO.setFieldCode(fieldCode);
         fieldDTO.setFieldName(fieldName);

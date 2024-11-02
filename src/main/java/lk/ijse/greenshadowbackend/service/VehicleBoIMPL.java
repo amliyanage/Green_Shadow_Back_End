@@ -43,9 +43,9 @@ public class VehicleBoIMPL implements VehicleBo {
     }
 
     @Override
-    public void updateVehicle(VehicleDTO vehicleDTO, String staffId) {
+    public void updateVehicle(VehicleDTO vehicleDTO, String staffId , String vehicleCode) {
 
-        Vehicle vehicle = vehicleRepository.findById(vehicleDTO.getVehicleCode())
+        Vehicle vehicle = vehicleRepository.findById(vehicleCode)
                 .orElseThrow(() -> new NotFoundException("Vehicle not found"));
 
         Staff staff = null;

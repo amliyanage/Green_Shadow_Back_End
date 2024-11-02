@@ -49,8 +49,8 @@ public class StaffBoIMPL implements StaffBo{
     }
 
     @Override
-    public void updateStaff(StaffDTO staffDTO) {
-        Optional<Staff> staff = staffRepository.findById(staffDTO.getId());
+    public void updateStaff(StaffDTO staffDTO,String id) {
+        Optional<Staff> staff = staffRepository.findById(id);
         if (staff.isPresent()){
             Staff save = staffRepository.save(mapping.convertStaffDTOToStaff(staffDTO));
             if (save == null){

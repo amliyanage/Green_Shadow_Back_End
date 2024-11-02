@@ -11,7 +11,7 @@ public interface StaffBo {
 
     StaffResponse getStaff(String id);
 
-    void updateStaff(@Valid StaffDTO staffDTO);
+    void updateStaff(@Valid StaffDTO staffDTO,String id);
 
     void deleteStaff(String id);
 

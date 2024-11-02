@@ -47,8 +47,8 @@ public class UserBoIMPL implements UserBo{
     }
 
     @Override
-    public void updateUser(UserDTO user) {
-        Optional<User> existsUser = userRepository.findByEmail(user.getEmail());
+    public void updateUser(UserDTO user, String email) {
+        Optional<User> existsUser = userRepository.findByEmail(email);
         if (existsUser.isPresent()) {
             existsUser.get().setPassword(user.getPassword());
         }else {
