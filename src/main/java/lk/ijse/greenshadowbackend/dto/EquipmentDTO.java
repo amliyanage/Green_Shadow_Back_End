@@ -18,7 +18,7 @@ public class EquipmentDTO implements EquipmentResponse {
     private String equipmentId;
 
     @NotBlank
-    private String name;
+    private String equipmentName;
 
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9 ]+$")
@@ -26,4 +26,8 @@ public class EquipmentDTO implements EquipmentResponse {
 
     @NotBlank
     private String status;
+
+    private String field;
+
+    private String staff;
 }

@@ -15,7 +15,7 @@ public class Equipment {
     @Column(name = "eqiupment_id")
     private String equipmentId;
     @Column(name = "equipment_name")
-    private String name;
+    private String equipmentName;
     @Column(name = "equipment_type")
     private String equipmentType;
     @Column(name = "availability_status")
