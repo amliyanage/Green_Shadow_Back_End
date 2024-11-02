@@ -1,6 +1,5 @@
 package lk.ijse.greenshadowbackend.controller;
 
-import lk.ijse.greenshadowbackend.Repository.CropDetailsRepository;
 import lk.ijse.greenshadowbackend.customObj.CropDetailsResponse;
 import lk.ijse.greenshadowbackend.dto.CropDetailsDTO;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
@@ -13,9 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @RestController
@@ -31,7 +27,7 @@ public class CropDetailsController {
             @RequestPart(value = "observedImg") MultipartFile observedImg
     ) {
         try {
-            String updateBase64ProfilePic = AppUtil.toBase64ProfilePic(observedImg);
+            String updateBase64ProfilePic = AppUtil.toBase64(observedImg);
             CropDetailsDTO cropDetailsDTO = new CropDetailsDTO();
             cropDetailsDTO.setLogDate(new Date());
             cropDetailsDTO.setLogDetails(logDetails);
@@ -50,7 +46,7 @@ public class CropDetailsController {
             @RequestPart(value = "observedImg") MultipartFile observedImg
     ){
         try {
-            String updateBase64ProfilePic = AppUtil.toBase64ProfilePic(observedImg);
+            String updateBase64ProfilePic = AppUtil.toBase64(observedImg);
             CropDetailsDTO cropDetailsDTO = new CropDetailsDTO();
             cropDetailsDTO.setLogCode(logCode);
             cropDetailsDTO.setLogDetails(logDetails);

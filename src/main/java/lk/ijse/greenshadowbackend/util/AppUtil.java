@@ -15,7 +15,7 @@ public class AppUtil {
         return "ST-" + UUID.randomUUID();
     }
 
-    public static String toBase64ProfilePic(MultipartFile profilePic){
+    public static String toBase64(MultipartFile profilePic){
         String proPicBase64 = null;
         try {
             byte [] proPicBytes = profilePic.getBytes();

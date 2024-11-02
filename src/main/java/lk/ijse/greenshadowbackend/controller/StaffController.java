@@ -44,7 +44,7 @@ public class StaffController {
             StaffResponse staffResponse = staffBo.getStaff(id);
             logger.info("Successfully fetched staff with ID: {}", id);
             return new ResponseEntity<>(staffResponse, HttpStatus.OK);
-        } catch (DataPersistFailedException e) {
+        } catch (NotFoundException e) {
             logger.error("Failed to fetch staff: {}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

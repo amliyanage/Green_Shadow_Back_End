@@ -68,7 +68,13 @@ public class FieldBoIMPL implements FieldBo{
     public FieldResponse getField(String fieldCode) {
         Optional<Field> field = fieldRepository.findById(fieldCode);
         if (field.isPresent()) {
-            return mapping.convertFieldToFieldDTO(field.get());
+            FieldDTO fieldDTO = mapping.convertFieldToFieldDTO(field.get());
+            List<String> staffIds = new ArrayList<>();
+            field.get().getStaff().forEach(
+                    staff -> staffIds.add(staff.getId())
+            );
+            fieldDTO.setStaffId(staffIds);
+            return fieldDTO;
         }else {
             return new FieldErrorResponse("Field not found", 404);
         }

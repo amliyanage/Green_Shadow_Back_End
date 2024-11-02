@@ -39,8 +39,8 @@ public class FieldController {
         fieldDTO.setFieldName(fieldName);
         fieldDTO.setFieldLocation(new Point(fieldLocationX, fieldLocationY));
         fieldDTO.setFieldSize(fieldSize);
-        fieldDTO.setImage1(AppUtil.toBase64ProfilePic(image1));
-        fieldDTO.setImage2(AppUtil.toBase64ProfilePic(image2));
+        fieldDTO.setImage1(AppUtil.toBase64(image1));
+        fieldDTO.setImage2(AppUtil.toBase64(image2));
 
         logger.info("Request received to save a new field: {}", fieldDTO);
         try {
@@ -72,8 +72,8 @@ public class FieldController {
         fieldDTO.setFieldName(fieldName);
         fieldDTO.setFieldLocation(new Point(fieldLocationX, fieldLocationY));
         fieldDTO.setFieldSize(fieldSize);
-        fieldDTO.setImage1(AppUtil.toBase64ProfilePic(image1));
-        fieldDTO.setImage2(AppUtil.toBase64ProfilePic(image2));
+        fieldDTO.setImage1(AppUtil.toBase64(image1));
+        fieldDTO.setImage2(AppUtil.toBase64(image2));
         logger.info("Request received to update field with staff IDs {}: {}", staffIds, fieldDTO);
         try {
             fieldBo.updateField(fieldDTO,staffIds);
