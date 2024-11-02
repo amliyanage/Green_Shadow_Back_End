@@ -52,6 +52,7 @@ public class StaffBoIMPL implements StaffBo{
     public void updateStaff(StaffDTO staffDTO,String id) {
         Optional<Staff> staff = staffRepository.findById(id);
         if (staff.isPresent()){
+            staffDTO.setId(id);
             Staff save = staffRepository.save(mapping.convertStaffDTOToStaff(staffDTO));
             if (save == null){
                 throw new DataPersistFailedException("Staff update failed");

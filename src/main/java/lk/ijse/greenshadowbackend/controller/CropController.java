@@ -118,4 +118,10 @@ public class CropController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllCrops(){
+        logger.info("Fetching all crops");
+        return new ResponseEntity<>(cropBo.getAllCrops(), HttpStatus.OK);
+    }
+
 }

@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -78,5 +79,10 @@ public class CropBoIMPL implements CropBo{
         }else {
             throw new NotFoundException("Crop not found");
         }
+    }
+
+    @Override
+    public List getAllCrops() {
+        return mapping.convertCropListToCropDTOList(cropRepository.findAll());
     }
 }
