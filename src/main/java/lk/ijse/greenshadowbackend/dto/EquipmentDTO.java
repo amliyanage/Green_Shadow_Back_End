@@ -27,7 +27,7 @@ public class EquipmentDTO implements EquipmentResponse {
     @NotBlank
     private String status;
 
-    private String field;
+    private String fieldCode;
 
-    private String staff;
+    private String staffId;
 }

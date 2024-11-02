@@ -45,15 +45,16 @@ public class VehicleBoIMPL implements VehicleBo {
     @Override
     public void updateVehicle(VehicleDTO vehicleDTO, String staffId) {
 
-        Staff staff = null;
-        if (!staffId.equals("N/A")) {
-            staff = staffRepository.findById(staffId)
-                    .orElseThrow(() -> new NotFoundException("Staff not found"));
-            vehicleDTO.setStaff(mapping.convertStaffToStaffDTO(staff));
-        }
-
         Vehicle vehicle = vehicleRepository.findById(vehicleDTO.getVehicleCode())
                 .orElseThrow(() -> new NotFoundException("Vehicle not found"));
+
+        Staff staff = null;
+        if (!staffId.equals("N/A")) {
+
+            staff = staffRepository.findById(staffId)
+                    .orElseThrow(() -> new NotFoundException("Staff not found"));
+            vehicle.setStaff(staff);
+        }
 
         vehicle.setLicensePlateNumber(vehicleDTO.getLicensePlateNumber());
         vehicle.setVehicleCategory(vehicleDTO.getVehicleCategory());
@@ -75,7 +76,6 @@ public class VehicleBoIMPL implements VehicleBo {
     public VehicleDTO getVehicle(String vehicleCode) {
         Vehicle vehicle = vehicleRepository.findById(vehicleCode)
                 .orElseThrow(() -> new NotFoundException("vehicle not found"));
-
         return mapping.convertVehicleToVehicleDTO(vehicle);
     }
 

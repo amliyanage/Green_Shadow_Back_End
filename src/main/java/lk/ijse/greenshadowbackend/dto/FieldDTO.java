@@ -27,7 +27,7 @@ public class FieldDTO implements FieldResponse {
     private Point fieldLocation;
 
     @Positive
-    @NotBlank
+    @NotNull // Changed to @NotNull to avoid conflicts
     private double fieldSize;
 
     @NotNull
@@ -37,5 +37,5 @@ public class FieldDTO implements FieldResponse {
     private String image2;
 
     @NotNull
-    private List<StaffDTO> staff;
+    private List<String> staffId;
 }

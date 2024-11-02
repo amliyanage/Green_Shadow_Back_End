@@ -4,13 +4,17 @@ import lk.ijse.greenshadowbackend.dto.FieldDTO;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.FieldBo;
+import lk.ijse.greenshadowbackend.util.AppUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -21,8 +25,23 @@ public class FieldController {
     private static final Logger logger = LoggerFactory.getLogger(FieldController.class);
     private final FieldBo fieldBo;
 
-    @PostMapping
-    public ResponseEntity<?> saveField(@RequestBody FieldDTO fieldDTO){
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> saveField(
+            @RequestParam("fieldName") String fieldName,
+            @RequestParam("fieldLocationX") int fieldLocationX,
+            @RequestParam("fieldSize") double fieldSize,
+            @RequestParam("image1") MultipartFile image1,
+            @RequestParam("image2") MultipartFile image2,
+            @RequestParam("fieldLocationY") int fieldLocationY
+    ){
+        logger.info("y"+fieldLocationY +"x"+fieldLocationX);
+        FieldDTO fieldDTO = new FieldDTO();
+        fieldDTO.setFieldName(fieldName);
+        fieldDTO.setFieldLocation(new Point(fieldLocationX, fieldLocationY));
+        fieldDTO.setFieldSize(fieldSize);
+        fieldDTO.setImage1(AppUtil.toBase64ProfilePic(image1));
+        fieldDTO.setImage2(AppUtil.toBase64ProfilePic(image2));
+
         logger.info("Request received to save a new field: {}", fieldDTO);
         try {
             fieldBo.saveField(fieldDTO);
@@ -38,7 +57,23 @@ public class FieldController {
     }
 
     @PatchMapping(params = "staffIds")
-    public ResponseEntity<?> updateField(@RequestBody FieldDTO fieldDTO, @RequestParam("staffIds") List<String> staffIds){
+    public ResponseEntity<?> updateField(
+            @RequestParam("fieldCode") String fieldCode,
+            @RequestParam("fieldName") String fieldName,
+            @RequestParam("fieldLocationX") int fieldLocationX,
+            @RequestParam("fieldSize") double fieldSize,
+            @RequestParam("image1") MultipartFile image1,
+            @RequestParam("image2") MultipartFile image2,
+            @RequestParam("fieldLocationY") int fieldLocationY,
+            @RequestParam("staffIds") List<String> staffIds )
+    {
+        FieldDTO fieldDTO = new FieldDTO();
+        fieldDTO.setFieldCode(fieldCode);
+        fieldDTO.setFieldName(fieldName);
+        fieldDTO.setFieldLocation(new Point(fieldLocationX, fieldLocationY));
+        fieldDTO.setFieldSize(fieldSize);
+        fieldDTO.setImage1(AppUtil.toBase64ProfilePic(image1));
+        fieldDTO.setImage2(AppUtil.toBase64ProfilePic(image2));
         logger.info("Request received to update field with staff IDs {}: {}", staffIds, fieldDTO);
         try {
             fieldBo.updateField(fieldDTO,staffIds);
@@ -47,7 +82,11 @@ public class FieldController {
         } catch (NotFoundException e) {
             logger.error("Field not found for update: {}", fieldDTO, e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } catch (Exception e) {
+        } catch (DataPersistFailedException e) {
+            logger.error("Failed to update field: {}", fieldDTO, e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception e) {
             logger.error("Internal server error while updating field: {}", fieldDTO, e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -30,5 +30,5 @@ public class VehicleDTO {
     @Size(max = 200)
     private String remarks;
 
-    private StaffDTO staff;
+    private String staffId;
 }

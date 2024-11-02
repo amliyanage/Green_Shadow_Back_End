@@ -41,22 +41,24 @@ public class FieldBoIMPL implements FieldBo{
 
     @Override
     public void updateField(FieldDTO fieldDTO , List<String> staffIds) {
-        List<StaffDTO> staff = new ArrayList<>();
-        for (String staffId : staffIds) {
-            if (staffId.equals("N/A")) {
-                fieldDTO.getStaff().add(null);
-                break;
-            } else {
-                Optional<Staff> optional = staffRepository.findById(staffId);
-                optional.ifPresent(value -> staff.add(mapping.convertStaffToStaffDTO(value)));
-            }
-        }
-        fieldDTO.setStaff(staff);
 
         Optional<Field> field = fieldRepository.findById(fieldDTO.getFieldCode());
-
         if (field.isPresent()) {
-            fieldRepository.save(mapping.convertFieldDTOToField(fieldDTO));
+            Field TempField1 = mapping.convertFieldDTOToField(fieldDTO);
+            List<Staff> staff = new ArrayList<>();
+            for (String staffId : staffIds) {
+                if (staffId.equals("N/A")) {
+                break;
+                } else {
+                    Optional<Staff> optional = staffRepository.findById(staffId);
+                    optional.ifPresent(staff::add);
+                }
+            }
+            TempField1.setStaff(staff);
+            Field save = fieldRepository.save(TempField1);
+            if (save == null) {
+                throw new DataPersistFailedException("Field update failed");
+            }
         }else {
             throw new NotFoundException("Field not found");
         }

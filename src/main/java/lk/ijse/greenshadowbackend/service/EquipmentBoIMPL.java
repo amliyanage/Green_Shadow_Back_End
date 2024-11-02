@@ -46,18 +46,7 @@ public class EquipmentBoIMPL implements EquipmentBo {
     public EquipmentResponse getEquipmentById(String equipmentId) {
         Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
         if (equipment.isPresent()){
-            EquipmentDTO equipmentDTO = new EquipmentDTO();
-            equipmentDTO.setEquipmentId(equipment.get().getEquipmentId());
-            equipmentDTO.setEquipmentName(equipment.get().getEquipmentName());
-            equipmentDTO.setEquipmentType(equipment.get().getEquipmentType());
-            equipmentDTO.setStatus(equipment.get().getStatus());
-            if (equipment.get().getField() != null){
-                equipmentDTO.setField(equipment.get().getField().getFieldCode());
-            }
-            if (equipment.get().getStaff() != null){
-                equipmentDTO.setStaff(equipment.get().getStaff().getId());
-            }
-            return equipmentDTO;
+            return mapping.convertEquipmentToEquipmentDTO(equipment.get());
         }else {
             return new EquipmentErrorResponse("Equipment not found", 404);
         }
