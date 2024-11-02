@@ -54,4 +54,18 @@ public class CropController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCrop(@PathVariable String id){
+        try {
+            logger.info("Fetching crop with ID: {}", id);
+            return new ResponseEntity<>(cropBo.getCrop(id), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error("Failed to fetch crop: {}", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            logger.error("Unexpected error occurred while fetching crop: {}", e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

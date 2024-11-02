@@ -9,7 +9,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CropErrorResponse implements CropResponse , Serializable {
+public class CropDetailsErrorResponse implements CropDetailsResponse , Serializable {
     private int errorCode;
     private String errorMessage;
 }

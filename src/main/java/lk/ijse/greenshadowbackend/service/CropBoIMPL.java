@@ -3,6 +3,8 @@ package lk.ijse.greenshadowbackend.service;
 import lk.ijse.greenshadowbackend.Repository.CropRepository;
 import lk.ijse.greenshadowbackend.Repository.FieldRepository;
 import lk.ijse.greenshadowbackend.Repository.StaffRepository;
+import lk.ijse.greenshadowbackend.customObj.CropErrorResponse;
+import lk.ijse.greenshadowbackend.customObj.CropResponse;
 import lk.ijse.greenshadowbackend.dto.CropDTO;
 import lk.ijse.greenshadowbackend.entity.Crop;
 import lk.ijse.greenshadowbackend.entity.Field;
@@ -13,6 +15,8 @@ import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +38,17 @@ public class CropBoIMPL implements CropBo{
         Crop save = cropRepository.save(crop);
         if (save == null){
             throw new DataPersistFailedException("Crop save failed");
+        }
+    }
+
+    @Override
+    public CropResponse getCrop(String id) {
+        Optional<Crop> byCropCode = cropRepository.findByCropCode(id);
+        if (byCropCode.isPresent()){
+            CropDTO cropDTO = mapping.convertCropToCropDTO(byCropCode.get());
+            return cropDTO;
+        }else {
+            return new CropErrorResponse(0,"Crop not found");
         }
     }
 }
