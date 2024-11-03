@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/cropDetails")
@@ -24,15 +25,18 @@ public class CropDetailsController {
     @PostMapping
     public ResponseEntity<?> saveCropDetails(
             @RequestPart(value = "logDetails") String logDetails,
-            @RequestPart(value = "observedImg") MultipartFile observedImg
-    ) {
+            @RequestPart(value = "observedImg") MultipartFile observedImg,
+            @RequestParam(value = "fieldCode") List<String> fieldCodes,
+            @RequestParam(value = "cropCode") List<String> cropCodes,
+            @RequestParam(value = "staffId") List<String> staffIds
+            ) {
         try {
             String updateBase64ProfilePic = AppUtil.toBase64(observedImg);
             CropDetailsDTO cropDetailsDTO = new CropDetailsDTO();
             cropDetailsDTO.setLogDate(new Date());
             cropDetailsDTO.setLogDetails(logDetails);
             cropDetailsDTO.setObservedImage(updateBase64ProfilePic);
-            cropDetailsBo.saveCropDetails(cropDetailsDTO);
+            cropDetailsBo.saveCropDetails(cropDetailsDTO,fieldCodes,cropCodes,staffIds);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }catch (DataPersistFailedException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
