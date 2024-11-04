@@ -36,21 +36,21 @@ public class CropDetailsBoIMPL implements CropDetailsBo {
     private final Mapping mapping;
 
     @Override
-    public void saveCropDetails(CropDetailsDTO cropDetailsDTO, List<String> fieldCodes, List<String> cropCodes, List<String> staffIds) {
+    public void saveCropDetails(CropDetailsDTO cropDetailsDTO) {
 
         List<Field> filed = new ArrayList<>();
         List<Crop> crops = new ArrayList<>();
         List<Staff> staff = new ArrayList<>();
 
-        for (String fieldCode : fieldCodes) {
+        for (String fieldCode : cropDetailsDTO.getFieldCodes()) {
             fieldRepository.findById(fieldCode).ifPresent(filed::add);
         }
 
-        for (String cropCode : cropCodes) {
+        for (String cropCode : cropDetailsDTO.getCropCodes()) {
             cropRepository.findByCropCode(cropCode).ifPresent(crops::add);
         }
 
-        for (String staffId : staffIds) {
+        for (String staffId : cropDetailsDTO.getStaffIds()) {
             staffRepository.findById(staffId).ifPresent(staff::add);
         }
 
@@ -82,6 +82,27 @@ public class CropDetailsBoIMPL implements CropDetailsBo {
         Optional<CropDetails> cropDetailsByLogCode = cropDetailsRepository.findCropDetailsByLogCode(logCode);
         if (cropDetailsByLogCode.isPresent()){
             CropDetailsDTO cropDetailsDTO = mapping.convertCropDetailsToCropDetailsDTO(cropDetailsByLogCode.get());
+            if (cropDetailsByLogCode.get().getField() != null){
+                List<String> fieldCodes = new ArrayList<>();
+                cropDetailsByLogCode.get().getField().forEach(
+                        field -> fieldCodes.add(field.getFieldCode())
+                );
+                cropDetailsDTO.setFieldCodes(fieldCodes);
+            }
+            if (cropDetailsByLogCode.get().getCrop() != null){
+                List<String> cropCodes = new ArrayList<>();
+                cropDetailsByLogCode.get().getCrop().forEach(
+                        crop -> cropCodes.add(crop.getCropCode())
+                );
+                cropDetailsDTO.setCropCodes(cropCodes);
+            }
+            if (cropDetailsByLogCode.get().getStaff() != null){
+                List<String> staffIds = new ArrayList<>();
+                cropDetailsByLogCode.get().getStaff().forEach(
+                        staff -> staffIds.add(staff.getId())
+                );
+                cropDetailsDTO.setStaffIds(staffIds);
+            }
             return cropDetailsDTO;
         }else {
             return new CropDetailsErrorResponse(0,"Crop details not found");

@@ -36,7 +36,10 @@ public class CropDetailsController {
             cropDetailsDTO.setLogDate(new Date());
             cropDetailsDTO.setLogDetails(logDetails);
             cropDetailsDTO.setObservedImage(updateBase64ProfilePic);
-            cropDetailsBo.saveCropDetails(cropDetailsDTO,fieldCodes,cropCodes,staffIds);
+            cropDetailsDTO.setFieldCodes(fieldCodes);
+            cropDetailsDTO.setCropCodes(cropCodes);
+            cropDetailsDTO.setStaffIds(staffIds);
+            cropDetailsBo.saveCropDetails(cropDetailsDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }catch (DataPersistFailedException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

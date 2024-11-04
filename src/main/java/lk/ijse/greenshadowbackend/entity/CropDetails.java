@@ -23,6 +23,7 @@ public class CropDetails {
     private String observedImage;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "field_log",
             joinColumns = @JoinColumn(name = "field_code"),
@@ -31,6 +32,7 @@ public class CropDetails {
     private List<Field> field;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "log_crop_details",
             joinColumns = @JoinColumn(name = "log_code"),
@@ -39,6 +41,7 @@ public class CropDetails {
     private List<Crop> crop;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "log_staff",
             joinColumns = @JoinColumn(name = "log_code"),

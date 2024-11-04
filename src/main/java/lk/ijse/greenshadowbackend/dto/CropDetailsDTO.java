@@ -17,7 +17,7 @@ public class CropDetailsDTO implements CropDetailsResponse {
     private Date logDate;
     private String logDetails;
     private String observedImage;
-//    private List<FieldDTO> fields;
-//    private List<CropDTO> crops;
-//    private List<StaffDTO> staff;
+    private List<String> fieldCodes;
+    private List<String> cropCodes;
+    private List<String> staffIds;
 }
