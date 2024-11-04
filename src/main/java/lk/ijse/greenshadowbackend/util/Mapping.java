@@ -1,6 +1,6 @@
 package lk.ijse.greenshadowbackend.util;
 
-import lk.ijse.greenshadowbackend.dto.*;
+import lk.ijse.greenshadowbackend.dto.impl.*;
 import lk.ijse.greenshadowbackend.entity.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

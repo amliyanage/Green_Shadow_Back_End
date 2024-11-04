@@ -1,24 +1,19 @@
-package lk.ijse.greenshadowbackend.dto;
+package lk.ijse.greenshadowbackend.dto.impl;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lk.ijse.greenshadowbackend.customObj.StaffResponse;
-import lk.ijse.greenshadowbackend.entity.*;
+import lk.ijse.greenshadowbackend.dto.SuperDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StaffDTO implements StaffResponse {
+public class StaffDTO implements StaffResponse , SuperDto {
     private String id;
 
     @NotBlank

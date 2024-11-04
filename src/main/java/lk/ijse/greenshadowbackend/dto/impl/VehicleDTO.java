@@ -1,8 +1,10 @@
-package lk.ijse.greenshadowbackend.dto;
+package lk.ijse.greenshadowbackend.dto.impl;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lk.ijse.greenshadowbackend.customObj.VehicleResponse;
+import lk.ijse.greenshadowbackend.dto.SuperDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VehicleDTO {
+public class VehicleDTO implements VehicleResponse , SuperDto {
 
     private String vehicleCode;
 

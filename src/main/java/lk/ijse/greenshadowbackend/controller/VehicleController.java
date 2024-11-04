@@ -1,7 +1,7 @@
 package lk.ijse.greenshadowbackend.controller;
 
 import jakarta.validation.Valid;
-import lk.ijse.greenshadowbackend.dto.VehicleDTO;
+import lk.ijse.greenshadowbackend.dto.impl.VehicleDTO;
 import lk.ijse.greenshadowbackend.exception.AlreadyExistsException;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;

@@ -1,16 +1,17 @@
-package lk.ijse.greenshadowbackend.service;
+package lk.ijse.greenshadowbackend.service.impl;
 
 import lk.ijse.greenshadowbackend.Repository.EquipmentRepository;
 import lk.ijse.greenshadowbackend.Repository.FieldRepository;
 import lk.ijse.greenshadowbackend.Repository.StaffRepository;
-import lk.ijse.greenshadowbackend.customObj.EquipmentErrorResponse;
+import lk.ijse.greenshadowbackend.customObj.errorRespose.EquipmentErrorResponse;
 import lk.ijse.greenshadowbackend.customObj.EquipmentResponse;
-import lk.ijse.greenshadowbackend.dto.EquipmentDTO;
+import lk.ijse.greenshadowbackend.dto.impl.EquipmentDTO;
 import lk.ijse.greenshadowbackend.entity.Equipment;
 import lk.ijse.greenshadowbackend.entity.Field;
 import lk.ijse.greenshadowbackend.entity.Staff;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
+import lk.ijse.greenshadowbackend.service.EquipmentBo;
 import lk.ijse.greenshadowbackend.util.AppUtil;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;

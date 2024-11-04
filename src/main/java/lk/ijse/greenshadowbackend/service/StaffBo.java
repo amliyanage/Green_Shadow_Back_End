@@ -2,7 +2,7 @@ package lk.ijse.greenshadowbackend.service;
 
 import jakarta.validation.Valid;
 import lk.ijse.greenshadowbackend.customObj.StaffResponse;
-import lk.ijse.greenshadowbackend.dto.StaffDTO;
+import lk.ijse.greenshadowbackend.dto.impl.StaffDTO;
 
 import java.util.List;
 

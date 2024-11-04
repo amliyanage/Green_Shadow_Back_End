@@ -1,12 +1,13 @@
-package lk.ijse.greenshadowbackend.service;
+package lk.ijse.greenshadowbackend.service.impl;
 
 import lk.ijse.greenshadowbackend.Repository.StaffRepository;
-import lk.ijse.greenshadowbackend.customObj.StaffErrorResponse;
+import lk.ijse.greenshadowbackend.customObj.errorRespose.StaffErrorResponse;
 import lk.ijse.greenshadowbackend.customObj.StaffResponse;
-import lk.ijse.greenshadowbackend.dto.StaffDTO;
+import lk.ijse.greenshadowbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshadowbackend.entity.Staff;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
+import lk.ijse.greenshadowbackend.service.StaffBo;
 import lk.ijse.greenshadowbackend.util.AppUtil;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class StaffBoIMPL implements StaffBo{
+public class StaffBoIMPL implements StaffBo {
 
     private final StaffRepository staffRepository;
 

@@ -1,7 +1,7 @@
 package lk.ijse.greenshadowbackend.service;
 
 import lk.ijse.greenshadowbackend.customObj.CropResponse;
-import lk.ijse.greenshadowbackend.dto.CropDTO;
+import lk.ijse.greenshadowbackend.dto.impl.CropDTO;
 
 import java.util.List;
 

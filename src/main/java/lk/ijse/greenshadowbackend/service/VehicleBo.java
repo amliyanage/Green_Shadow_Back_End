@@ -1,6 +1,7 @@
 package lk.ijse.greenshadowbackend.service;
 
-import lk.ijse.greenshadowbackend.dto.VehicleDTO;
+import lk.ijse.greenshadowbackend.customObj.VehicleResponse;
+import lk.ijse.greenshadowbackend.dto.impl.VehicleDTO;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface VehicleBo {
 
     void updateVehicle(VehicleDTO vehicleDTO , String staffId , String vehicleCode);
 
-    VehicleDTO getVehicle(String vehicleCode);
+    VehicleResponse getVehicle(String vehicleCode);
 
     void deleteVehicle(String vehicleCode);
 

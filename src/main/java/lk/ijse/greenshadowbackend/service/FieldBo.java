@@ -1,7 +1,7 @@
 package lk.ijse.greenshadowbackend.service;
 
 import lk.ijse.greenshadowbackend.customObj.FieldResponse;
-import lk.ijse.greenshadowbackend.dto.FieldDTO;
+import lk.ijse.greenshadowbackend.dto.impl.FieldDTO;
 
 import java.util.List;
 

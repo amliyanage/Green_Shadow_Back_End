@@ -1,15 +1,16 @@
-package lk.ijse.greenshadowbackend.service;
+package lk.ijse.greenshadowbackend.service.impl;
 
 import lk.ijse.greenshadowbackend.Repository.StaffRepository;
 import lk.ijse.greenshadowbackend.Repository.VehicleRepository;
-import lk.ijse.greenshadowbackend.customObj.StaffResponse;
-import lk.ijse.greenshadowbackend.dto.StaffDTO;
-import lk.ijse.greenshadowbackend.dto.VehicleDTO;
+import lk.ijse.greenshadowbackend.customObj.VehicleResponse;
+import lk.ijse.greenshadowbackend.customObj.errorRespose.VehicleErrorResponse;
+import lk.ijse.greenshadowbackend.dto.impl.VehicleDTO;
 import lk.ijse.greenshadowbackend.entity.Staff;
 import lk.ijse.greenshadowbackend.entity.Vehicle;
 import lk.ijse.greenshadowbackend.exception.AlreadyExistsException;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
+import lk.ijse.greenshadowbackend.service.VehicleBo;
 import lk.ijse.greenshadowbackend.util.AppUtil;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
@@ -73,10 +74,13 @@ public class VehicleBoIMPL implements VehicleBo {
 
 
     @Override
-    public VehicleDTO getVehicle(String vehicleCode) {
-        Vehicle vehicle = vehicleRepository.findById(vehicleCode)
-                .orElseThrow(() -> new NotFoundException("vehicle not found"));
-        return mapping.convertVehicleToVehicleDTO(vehicle);
+    public VehicleResponse getVehicle(String vehicleCode) {
+        Optional<Vehicle> byId = vehicleRepository.findById(vehicleCode);
+        if (byId.isPresent()){
+            return mapping.convertVehicleToVehicleDTO(byId.get());
+        }else {
+            return new  VehicleErrorResponse(404 , "vehicle not found");
+        }
     }
 
     @Override

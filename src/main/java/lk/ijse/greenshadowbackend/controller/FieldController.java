@@ -1,6 +1,6 @@
 package lk.ijse.greenshadowbackend.controller;
 
-import lk.ijse.greenshadowbackend.dto.FieldDTO;
+import lk.ijse.greenshadowbackend.dto.impl.FieldDTO;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.FieldBo;

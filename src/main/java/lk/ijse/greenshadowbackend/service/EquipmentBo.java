@@ -1,7 +1,7 @@
 package lk.ijse.greenshadowbackend.service;
 
 import lk.ijse.greenshadowbackend.customObj.EquipmentResponse;
-import lk.ijse.greenshadowbackend.dto.EquipmentDTO;
+import lk.ijse.greenshadowbackend.dto.impl.EquipmentDTO;
 
 import java.util.List;
 

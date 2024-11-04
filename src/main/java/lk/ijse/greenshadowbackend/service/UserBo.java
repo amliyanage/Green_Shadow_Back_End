@@ -1,8 +1,7 @@
 package lk.ijse.greenshadowbackend.service;
 
 import lk.ijse.greenshadowbackend.customObj.UserResponse;
-import lk.ijse.greenshadowbackend.dto.UserDTO;
-import lk.ijse.greenshadowbackend.entity.User;
+import lk.ijse.greenshadowbackend.dto.impl.UserDTO;
 
 public interface UserBo {
     void saveUser(UserDTO user);

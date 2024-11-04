@@ -1,10 +1,11 @@
-package lk.ijse.greenshadowbackend.dto;
+package lk.ijse.greenshadowbackend.dto.impl;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Pattern;
 import lk.ijse.greenshadowbackend.customObj.FieldResponse;
+import lk.ijse.greenshadowbackend.dto.SuperDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FieldDTO implements FieldResponse {
+public class FieldDTO implements FieldResponse , SuperDto {
 
     private String fieldCode;
 
