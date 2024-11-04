@@ -67,8 +67,8 @@ public class CropDetailsBoIMPL implements CropDetailsBo {
     }
 
     @Override
-    public void updateCropDetails(CropDetailsDTO cropDetailsDTO){
-        Optional<CropDetails> cropDetailsByLogCode = cropDetailsRepository.findCropDetailsByLogCode(cropDetailsDTO.getLogCode());
+    public void updateCropDetails(CropDetailsDTO cropDetailsDTO , String logCode) {
+        Optional<CropDetails> cropDetailsByLogCode = cropDetailsRepository.findCropDetailsByLogCode(logCode);
         if (cropDetailsByLogCode.isPresent()){
             cropDetailsByLogCode.get().setLogDetails(cropDetailsDTO.getLogDetails());
             cropDetailsByLogCode.get().setObservedImage(cropDetailsDTO.getObservedImage());

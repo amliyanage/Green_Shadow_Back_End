@@ -43,19 +43,18 @@ public class CropDetailsController {
         }
     }
 
-    @PatchMapping
+    @PatchMapping(value = "/{logCode}")
     public ResponseEntity<?> updateCropDetails(
-            @RequestPart(value = "logCode") String logCode,
             @RequestPart(value = "logDetails") String logDetails,
-            @RequestPart(value = "observedImg") MultipartFile observedImg
+            @RequestPart(value = "observedImg") MultipartFile observedImg,
+            @PathVariable(value = "logCode") String logCode
     ){
         try {
             String updateBase64ProfilePic = AppUtil.toBase64(observedImg);
             CropDetailsDTO cropDetailsDTO = new CropDetailsDTO();
-            cropDetailsDTO.setLogCode(logCode);
             cropDetailsDTO.setLogDetails(logDetails);
             cropDetailsDTO.setObservedImage(updateBase64ProfilePic);
-            cropDetailsBo.updateCropDetails(cropDetailsDTO);
+            cropDetailsBo.updateCropDetails(cropDetailsDTO,logCode);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (NotFoundException e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

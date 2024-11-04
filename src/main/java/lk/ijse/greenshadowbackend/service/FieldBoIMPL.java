@@ -47,12 +47,8 @@ public class FieldBoIMPL implements FieldBo{
             Field TempField1 = mapping.convertFieldDTOToField(fieldDTO);
             List<Staff> staff = new ArrayList<>();
             for (String staffId : staffIds) {
-                if (staffId.equals("N/A")) {
-                break;
-                } else {
-                    Optional<Staff> optional = staffRepository.findById(staffId);
-                    optional.ifPresent(staff::add);
-                }
+                Optional<Staff> optional = staffRepository.findById(staffId);
+                optional.ifPresent(staff::add);
             }
             TempField1.setStaff(staff);
             Field save = fieldRepository.save(TempField1);

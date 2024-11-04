@@ -8,7 +8,7 @@ import java.util.List;
 public interface CropDetailsBo {
     void saveCropDetails(CropDetailsDTO cropDetailsDTO, List<String> fieldCodes, List<String> cropCodes, List<String> staffIds);
 
-    void updateCropDetails(CropDetailsDTO cropDetailsDTO);
+    void updateCropDetails(CropDetailsDTO cropDetailsDTO , String logCode);
 
     CropDetailsResponse findCropDetailsByLogCode(String logCode);
 
