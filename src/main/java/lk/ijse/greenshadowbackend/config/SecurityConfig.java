@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .authorizeRequests(
                     req ->
-                            req.requestMatchers("/greenshadow/v1/auth/**").permitAll()
+                            req.requestMatchers("v1/auth/**").permitAll()
                                     .anyRequest()
                                     .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
