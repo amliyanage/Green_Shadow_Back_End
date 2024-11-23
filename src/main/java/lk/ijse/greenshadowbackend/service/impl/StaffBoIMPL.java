@@ -5,6 +5,7 @@ import lk.ijse.greenshadowbackend.customObj.errorRespose.StaffErrorResponse;
 import lk.ijse.greenshadowbackend.customObj.StaffResponse;
 import lk.ijse.greenshadowbackend.dto.impl.StaffDTO;
 import lk.ijse.greenshadowbackend.entity.Staff;
+import lk.ijse.greenshadowbackend.exception.AlreadyExistsException;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.StaffBo;
@@ -28,14 +29,15 @@ public class StaffBoIMPL implements StaffBo {
 
     @Override
     public void saveStaff(StaffDTO staffDTO) {
-        String staffID = AppUtil.createStaffID();
-        while (staffRepository.existsById(staffID)) {
-            staffID = AppUtil.createStaffID();
-        }
-        staffDTO.setId(staffID);
-        Staff save = staffRepository.save(mapping.convertStaffDTOToStaff(staffDTO));
-        if (save == null){
-            throw new DataPersistFailedException("Staff save failed");
+        if (!staffRepository.existsByEmail(staffDTO.getEmail())) {
+            String staffID = AppUtil.createStaffID();
+            staffDTO.setId(staffID);
+            Staff save = staffRepository.save(mapping.convertStaffDTOToStaff(staffDTO));
+            if (save == null) {
+                throw new DataPersistFailedException("Staff save failed");
+            }
+        }else {
+            throw new AlreadyExistsException("Email already exist");
         }
     }
 

@@ -43,7 +43,7 @@ public class Staff {
         private String addressLine5;
         @Column(name = "contact_no")
         private String contactNo;
-        @Column(name = "email")
+        @Column(name = "email" , unique = true)
         private String email;
         @Column(name = "role")
         @Enumerated(EnumType.STRING)

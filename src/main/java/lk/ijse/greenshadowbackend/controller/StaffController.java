@@ -3,6 +3,7 @@ package lk.ijse.greenshadowbackend.controller;
 import jakarta.validation.Valid;
 import lk.ijse.greenshadowbackend.customObj.StaffResponse;
 import lk.ijse.greenshadowbackend.dto.impl.StaffDTO;
+import lk.ijse.greenshadowbackend.exception.AlreadyExistsException;
 import lk.ijse.greenshadowbackend.exception.DataPersistFailedException;
 import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.StaffBo;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/staff")
+@CrossOrigin("*")
 public class StaffController {
 
     private static final Logger logger = LoggerFactory.getLogger(StaffController.class);
@@ -30,6 +32,9 @@ public class StaffController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistFailedException e) {
             logger.error("Failed to save staff: {}", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (AlreadyExistsException e){
+          logger.error("Email already existed");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             logger.error("Unexpected error occurred while saving staff: {}", e.getMessage(), e);
