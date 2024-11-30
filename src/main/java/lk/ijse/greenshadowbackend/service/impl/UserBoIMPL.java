@@ -10,6 +10,7 @@ import lk.ijse.greenshadowbackend.exception.NotFoundException;
 import lk.ijse.greenshadowbackend.service.UserBo;
 import lk.ijse.greenshadowbackend.util.Mapping;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,6 +56,13 @@ public class UserBoIMPL implements UserBo {
         }else {
             throw new NotFoundException("User not exists");
         }
+    }
+
+    @Override
+    public UserDetailsService userDetailsService() {
+        return email ->
+                userRepository.findByEmail(email)
+                        .orElseThrow(()-> new NotFoundException("User Not found"));
     }
 
 }

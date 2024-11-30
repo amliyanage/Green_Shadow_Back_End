@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/crop")
+@CrossOrigin("*")
 public class CropController {
 
     private final CropBo cropBo;
