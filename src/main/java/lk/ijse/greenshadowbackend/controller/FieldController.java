@@ -8,18 +8,19 @@ import lk.ijse.greenshadowbackend.util.AppUtil;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/field")
+@CrossOrigin("*")
 public class FieldController {
 
     private static final Logger logger = LoggerFactory.getLogger(FieldController.class);
@@ -28,11 +29,11 @@ public class FieldController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> saveField(
             @RequestParam("fieldName") String fieldName,
-            @RequestParam("fieldLocationX") int fieldLocationX,
+            @RequestParam("fieldLocationX") double fieldLocationX,
             @RequestParam("fieldSize") double fieldSize,
             @RequestParam("image1") MultipartFile image1,
             @RequestParam("image2") MultipartFile image2,
-            @RequestParam("fieldLocationY") int fieldLocationY
+            @RequestParam("fieldLocationY") double fieldLocationY
     ){
         logger.info("y"+fieldLocationY +"x"+fieldLocationX);
         FieldDTO fieldDTO = new FieldDTO();
@@ -60,11 +61,11 @@ public class FieldController {
     public ResponseEntity<?> updateField(
             @PathVariable("fieldCode") String fieldCode,
             @RequestParam("fieldName") String fieldName,
-            @RequestParam("fieldLocationX") int fieldLocationX,
+            @RequestParam("fieldLocationX") double fieldLocationX,
             @RequestParam("fieldSize") double fieldSize,
             @RequestParam("image1") MultipartFile image1,
             @RequestParam("image2") MultipartFile image2,
-            @RequestParam("fieldLocationY") int fieldLocationY,
+            @RequestParam("fieldLocationY") double fieldLocationY,
             @RequestParam("staffIds") List<String> staffIds
     ) {
         FieldDTO fieldDTO = new FieldDTO();

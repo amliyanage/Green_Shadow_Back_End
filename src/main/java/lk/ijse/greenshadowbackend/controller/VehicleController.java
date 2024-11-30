@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/vehicle")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class VehicleController {
 
     private final VehicleBo vehicleBo;
