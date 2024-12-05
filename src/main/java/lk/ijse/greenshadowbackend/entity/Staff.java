@@ -49,11 +49,11 @@ public class Staff {
         @Enumerated(EnumType.STRING)
         private Role role;
 
-        @ManyToMany(mappedBy = "staff")
+        @ManyToMany(mappedBy = "staff" , cascade = CascadeType.ALL)
         @JsonIgnore
         private List<Field> field;
 
-        @ManyToMany(mappedBy = "staff")
+        @ManyToMany(mappedBy = "staff" , cascade = CascadeType.ALL)
         @JsonIgnore
         private List<CropDetails> cropDetails;
 

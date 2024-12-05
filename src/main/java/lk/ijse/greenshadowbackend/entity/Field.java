@@ -44,7 +44,7 @@ public class Field {
     )
     private List<Staff> staff;
 
-    @ManyToMany(mappedBy = "field")
+    @ManyToMany(mappedBy = "field" , cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CropDetails> cropDetails;
 }

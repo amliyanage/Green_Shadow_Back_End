@@ -33,7 +33,7 @@ public class Crop {
     @JoinColumn(name = "field_code", referencedColumnName = "field_code")
     private Field field;
 
-    @ManyToMany(mappedBy = "crop")
+    @ManyToMany(mappedBy = "crop" , cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CropDetails> cropDetails;
 }
